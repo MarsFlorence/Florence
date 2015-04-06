@@ -1,7 +1,7 @@
 package florence.client;
 
 public class Module {
-
+//testing
 	public Module(int modId, Status modStatus, int modOrientation, double modXCoord, double modYCoord){
 		id = modId;
 		status = modStatus;
