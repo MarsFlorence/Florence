@@ -15,7 +15,9 @@ public class Module {
 	}
 	
 	public void setId(int modId){
-		id = modId;
+		if(moduleID >= 1 && moduleID <= 190){
+			id = modId;
+		}
 	}
 	
 	public Status getStatus(){
@@ -31,7 +33,9 @@ public class Module {
 	}
 	
 	public void setOrientation(int modOrientation){
-		orientation = modOrientation;
+		if(modOrientation <= 2 && modOrientation >= 0){
+			orientation = modOrientation;
+		}
 	}
 	
 	public double getXCoord(){
