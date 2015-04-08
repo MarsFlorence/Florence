@@ -1,16 +1,22 @@
 package florence.client;
 
-import florence.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
+
+import florence.shared.FieldVerifier;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -21,9 +27,23 @@ public class Florence implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+	    // Create a three-item tab panel, with the tab area 1.5em tall.
+	    TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+	    p.add(new HTML("Module Logging"), "Module Logging");
+	    p.add(new HTML("Configuration"), "Configuration");
+	    p.add(new HTML("Opitimal Routing"), "Optimal Routing");
+
+	    // Attach the LayoutPanel to the RootLayoutPanel. The latter will listen for
+	    // resize events on the window to ensure that its children are informed of
+	    // possible size changes.
+	    RootLayoutPanel rp = RootLayoutPanel.get();
+	    rp.add(p);
+	  }
+	
+	public void makeLogin() {
 		final Button sendButton = new Button("Login");
 		final TextBox idField = new TextBox();
-		final TextBox passwordField = new TextBox();
+		final PasswordTextBox passwordField = new PasswordTextBox();
 		idField.setText("Username");
 		passwordField.setText("Password");
 		final Label errorLabel = new Label();
