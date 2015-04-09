@@ -1,5 +1,6 @@
 package florence.client;
 
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -15,6 +16,7 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import florence.shared.FieldVerifier;
 
@@ -29,6 +31,12 @@ public class Florence implements EntryPoint {
 	public void onModuleLoad() {
 	    // Create a three-item tab panel, with the tab area 1.5em tall.
 	    TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+	    
+	    
+	    VerticalPanel log = new Login().makeLogin();
+	    
+	    p.add(log, "Login");
+	    
 	    p.add(new HTML("Module Logging"), "Module Logging");
 	    p.add(new HTML("Configuration"), "Configuration");
 	    p.add(new HTML("Opitimal Routing"), "Optimal Routing");
