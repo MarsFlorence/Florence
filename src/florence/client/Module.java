@@ -9,13 +9,16 @@ public class Module {
 		xCoord = modXCoord;
 		yCoord = modYCoord;
 	}
+	public Module(){
+		
+	}
 	
 	public int getId(){
 		return id;
 	}
 	
 	public void setId(int modId){
-		if(moduleID >= 1 && moduleID <= 190){
+		if(modId >= 1 && modId <= 190){
 			id = modId;
 		}
 	}
@@ -26,6 +29,18 @@ public class Module {
 	
 	public void setStatus(Status modStatus){
 		status = modStatus;
+	}
+	
+	public void setStatus(String modStatus){
+		if(modStatus.equals("UNDAMAGED")){
+			status = Status.UNDAMAGED;
+		}
+		else if(modStatus.equals("DAMAGED")){
+			status = Status.DAMAGED;
+		}
+		else if(modStatus.equals("UNCERTAIN")){
+			status = Status.UNCERTAIN;
+		}
 	}
 	
 	public int getOrientation(){
