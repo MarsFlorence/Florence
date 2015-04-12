@@ -37,7 +37,7 @@ public class Florence implements EntryPoint {
 	    
 	    p.add(log, "Login");
 	    
-	    p.add(new LoggingModules().LogginModulesPanel(), "Module Logging");
+	    p.add(new LoggingModules().LoggingModulesPanel(), "Module Logging");
 	    p.add(new HTML("Configuration"), "Configuration");
 	    p.add(new HTML("Opitimal Routing"), "Optimal Routing");
 

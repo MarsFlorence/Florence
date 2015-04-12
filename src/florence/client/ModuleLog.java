@@ -18,5 +18,8 @@ public class ModuleLog {
 	public ArrayList<Module> getModuleLog(){
 		return moduleLog;
 	}
+	public int getSize(){
+		return moduleLog.size();
+	}
 	private ArrayList<Module> moduleLog;
 }
