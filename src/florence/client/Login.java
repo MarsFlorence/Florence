@@ -2,22 +2,18 @@ package florence.client;
 
 
 
-import com.google.gwt.dev.jjs.ast.JLabel;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 
 public class Login {
@@ -62,9 +58,9 @@ public class Login {
 		    		  
 		    		  //This code MUST stay in this onclick handler. It is required so that the tabs aren't created until the user logs in.
 		    		  //Please let me know if you plan on changing this code - Jake
-	    			  tabPanel.add(new HTML("Module Logging"), "Module Logging");
-	    			  tabPanel.add(new HTML("Configuration"), "Configuration");
-	    			  tabPanel.add(new HTML("Opitimal Routing"), "Optimal Routing");		    		  
+		    		    tabPanel.add(new LoggingModules().LoggingModulesPanel(), "Module Logging");
+		    		    tabPanel.add(new HTML("Configuration"), "Configuration");
+		    		    tabPanel.add(new HTML("Opitimal Routing"), "Optimal Routing");	    		  
 		    		  if(tabPanel.getTabWidget(1) != null){
 		    			  tabPanel.selectTab(1);
 		    		  }else{

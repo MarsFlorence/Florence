@@ -48,9 +48,7 @@ public class Florence implements EntryPoint {
 //	    final Widget configurationTab = p.getTabWidget(2);
 //	    final Widget optimalRoutingTab = p.getTabWidget(3);	 
 
-	    p.add(new LoggingModules().LoggingModulesPanel(), "Module Logging");
-	    p.add(new HTML("Configuration"), "Configuration");
-	    p.add(new HTML("Opitimal Routing"), "Optimal Routing");
+
 
 
 	    
