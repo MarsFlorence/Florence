@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import florence.shared.FieldVerifier;
 
@@ -30,17 +31,23 @@ public class Florence implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 	    // Create a three-item tab panel, with the tab area 1.5em tall.
-	    TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+	    final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
 	    
 	    
-	    VerticalPanel log = new Login().makeLogin();
+	    VerticalPanel log = new Login(p).makeLogin();
 	    
 	    p.add(log, "Login");
+	    //The other tab layouts panels are added when the "submit" button is clicked with a correct username and password
 	    
-	    p.add(new HTML("Module Logging"), "Module Logging");
-	    p.add(new HTML("Configuration"), "Configuration");
-	    p.add(new HTML("Opitimal Routing"), "Optimal Routing");
+	    
+	    //This is all commented out for now, but this code could be useful in the future.
+	    //This code won't work for right now. - Jake
+//	    final Widget loginTab = p.getTabWidget(0);
+//	    final Widget moduleLoggingTab = p.getTabWidget(1);
+//	    final Widget configurationTab = p.getTabWidget(2);
+//	    final Widget optimalRoutingTab = p.getTabWidget(3);	 
 
+	    
 	    // Attach the LayoutPanel to the RootLayoutPanel. The latter will listen for
 	    // resize events on the window to ensure that its children are informed of
 	    // possible size changes.
