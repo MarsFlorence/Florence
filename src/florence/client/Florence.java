@@ -39,6 +39,7 @@ public class Florence implements EntryPoint {
 	    p.add(log, "Login");
 	    //The other tab layouts panels are added when the "submit" button is clicked with a correct username and password
 	    
+
 	    
 	    //This is all commented out for now, but this code could be useful in the future.
 	    //This code won't work for right now. - Jake
@@ -46,6 +47,11 @@ public class Florence implements EntryPoint {
 //	    final Widget moduleLoggingTab = p.getTabWidget(1);
 //	    final Widget configurationTab = p.getTabWidget(2);
 //	    final Widget optimalRoutingTab = p.getTabWidget(3);	 
+
+	    p.add(new LoggingModules().LoggingModulesPanel(), "Module Logging");
+	    p.add(new HTML("Configuration"), "Configuration");
+	    p.add(new HTML("Opitimal Routing"), "Optimal Routing");
+
 
 	    
 	    // Attach the LayoutPanel to the RootLayoutPanel. The latter will listen for
