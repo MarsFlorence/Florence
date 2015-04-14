@@ -1,5 +1,7 @@
 package florence.client;
 
+import com.google.gwt.user.client.ui.Image;
+
 public class Module {
 
 	public Module(int modId, Status modStatus, int modOrientation, double modXCoord, double modYCoord){
