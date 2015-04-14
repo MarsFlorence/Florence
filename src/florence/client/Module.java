@@ -69,6 +69,39 @@ public class Module {
 		yCoord = modYCoord;
 	}
 	
+	public Image imageLocate(){
+		final Image foundjpg;
+		if(id >= 1 && id <= 40){
+			foundjpg = new Image("images/Plain.jpg");
+		}else if (id >= 61 && id <= 80){
+			foundjpg =  new Image("images/Dormitory.jpg");
+		}else if (id >= 91 && id <= 100){
+			foundjpg =  new Image("images/Sanitation.jpg");
+		}else if (id >= 111 && id <= 120){
+			foundjpg =  new Image("images/Food.jpg");
+		}else if (id >= 131 && id <= 134){
+			foundjpg =  new Image("images/Gym.jpg");
+		}else if (id >= 141 && id <= 144){
+			foundjpg =  new Image("images/Canteen.jpg");
+		}else if (id >= 151 && id <= 154){
+			foundjpg =  new Image("images/Power.jpg");
+		}else if (id >= 161 && id <= 164){
+			foundjpg =  new Image("images/Control.jpg");
+		}else if (id >= 171 && id <= 174){
+			foundjpg =  new Image("images/Airlock.jpg");
+		}else if (id >= 181 && id <= 184){
+			foundjpg =  new Image("images/Medical.jpg");
+		}else{
+			//Put check here?
+			foundjpg = null;
+		}
+		//final ImageElement newPic = ImageElement.as(foundjpg.getElement());
+		//newPic.setHeight(10);
+		//newPic.setWidth(10);
+		
+		return foundjpg;
+	}
+	
 	private int id;
 	private Status status;
 	private int orientation;
