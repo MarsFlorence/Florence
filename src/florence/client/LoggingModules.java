@@ -2,6 +2,7 @@ package florence.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
@@ -21,13 +22,26 @@ public class LoggingModules {
 	private Button logMod = new Button("Log Module", new ClickHandler() {
 	      public void onClick(ClickEvent event) {
 	    	  Module newMod = new Module();
-	    	  newMod.setId(Integer.parseInt(modNum.getValue()));
-	    	  newMod.setStatus(modStatus.getValue(modStatus.getSelectedIndex()));
-	    	  newMod.setOrientation(Integer.parseInt(modOrientation.getValue(modOrientation.getSelectedIndex())));
-	    	  newMod.setXCoord(Double.parseDouble(modXCoord.getValue()));
-	    	  newMod.setYCoord(Double.parseDouble(modYCoord.getValue()));
-	    	  moduleLog.addModule(newMod);
-	    	  addTable();
+	    	  int currentID = Integer.parseInt(modNum.getValue());
+	    	  if(!moduleLog.containsModule(currentID)){
+	    		newMod.setId(currentID);
+	    	  	newMod.setStatus(modStatus.getValue(modStatus.getSelectedIndex()));
+	    	  	newMod.setOrientation(Integer.parseInt(modOrientation.getValue(modOrientation.getSelectedIndex())));
+	    	  	newMod.setXCoord(Double.parseDouble(modXCoord.getValue()));
+	    	  	newMod.setYCoord(Double.parseDouble(modYCoord.getValue()));
+	    	  	moduleLog.addModule(newMod);
+	    		addTable();
+	    	  }else{
+	    		  Window.alert("This module has already been logged.");
+	    	  }
+	    	  
+	    	  //Clears all input data for next input.
+	    	  modNum.setValue("");
+	    	  modStatus.setSelectedIndex(0);
+	    	  modOrientation.setSelectedIndex(0);
+	    	  modXCoord.setValue("");
+	    	  modYCoord.setValue("");
+	    	  
 	      }
 	    });
 	public LoggingModules(){

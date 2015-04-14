@@ -132,12 +132,8 @@ public class Module {
 		}else if (id >= 181 && id <= 184){
 			foundjpg =  new Image("images/Medical.jpg");
 		}else{
-			//Put check here?
 			foundjpg = null;
 		}
-		//final ImageElement newPic = ImageElement.as(foundjpg.getElement());
-		//newPic.setHeight(10);
-		//newPic.setWidth(10);
 		
 		return foundjpg;
 	}
