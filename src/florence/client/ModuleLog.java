@@ -37,6 +37,7 @@ public class ModuleLog {
 			}catch (NullPointerException exp){
 				//TODO Add some way to handle exception.
 			}
+			counter++;
 		} while (counter < this.getSize() && found == false);
 		return found;
 	}
