@@ -23,14 +23,30 @@ public class LoggingModules {
 	      public void onClick(ClickEvent event) {
 	    	  Module newMod = new Module();
 	    	  int currentID = Integer.parseInt(modNum.getValue());
+	    	  boolean allOkay = true;
 	    	  if(!moduleLog.containsModule(currentID)){
-	    		newMod.setId(currentID);
-	    	  	newMod.setStatus(modStatus.getValue(modStatus.getSelectedIndex()));
-	    	  	newMod.setOrientation(Integer.parseInt(modOrientation.getValue(modOrientation.getSelectedIndex())));
-	    	  	newMod.setXCoord(Double.parseDouble(modXCoord.getValue()));
-	    	  	newMod.setYCoord(Double.parseDouble(modYCoord.getValue()));
-	    	  	moduleLog.addModule(newMod);
-	    		addTable();
+	    		Module checking = new Module();
+	    		if(checking.validIDcheck(currentID)){
+	    			newMod.setId(currentID);
+		    	  	newMod.setStatus(modStatus.getValue(modStatus.getSelectedIndex()));
+		    	  	newMod.setOrientation(Integer.parseInt(modOrientation.getValue(modOrientation.getSelectedIndex())));
+	    		}else{
+	    			allOkay = false;
+	    		}
+	    	  	double x = Double.parseDouble(modXCoord.getValue());
+	    	  	double y = Double.parseDouble(modYCoord.getValue());
+	    	  	if((x < 99 && y < 99 && x > 0 && y > 0) && allOkay){
+	    	  		newMod.setXCoord(x);
+	    	  		newMod.setYCoord(y);
+	    	  	}else{
+	    	  		allOkay = false;
+	    	  	}
+	    	  	if(allOkay){
+	    	  		moduleLog.addModule(newMod);
+	    	  		addTable();
+	    	  	}else{
+	    	  		Window.alert("Module not added. Check ID and Coordinates.");
+	    	  	}
 	    	  }else{
 	    		  Window.alert("This module has already been logged.");
 	    	  }

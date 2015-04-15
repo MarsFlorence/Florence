@@ -138,6 +138,19 @@ public class Module {
 		return foundjpg;
 	}
 	
+	public boolean validIDcheck(int checking){
+		Module compare = new Module(checking, Status.UNCERTAIN, 0, 0.0, 0.0);
+		boolean checked = true;
+		try{
+			if(compare.getModType() == null){
+				checked = false;
+			}
+		}catch (NullPointerException exp){
+			
+		}
+		return checked;
+	}
+	
 	private int id;
 	private Status status;
 	private int orientation;
