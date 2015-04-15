@@ -71,6 +71,8 @@ public class Module {
 		status = modStatus;
 	}
 	
+
+	
 	public void setStatus(String modStatus){
 		if(modStatus.equals("UNDAMAGED")){
 			status = Status.UNDAMAGED;

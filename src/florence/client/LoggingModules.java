@@ -19,6 +19,7 @@ public class LoggingModules {
 	private TextBox modYCoord = new TextBox();
 	private ModuleLog moduleLog = new ModuleLog();
 	private FlexTable moduleTable = new FlexTable();
+	private MinMaxConditions modConfigs = new MinMaxConditions();
 	private Button logMod = new Button("Log Module", new ClickHandler() {
 	      public void onClick(ClickEvent event) {
 	    	  Module newMod = new Module();
@@ -57,8 +58,29 @@ public class LoggingModules {
 	    	  modOrientation.setSelectedIndex(0);
 	    	  modXCoord.setValue("");
 	    	  modYCoord.setValue("");
-	    	  
+	    	 
+	    	  //Calls MinMaxConfigs functions here only if the module logged is not DAMAGED
+	    	  if (newMod.getStatus() == Status.UNDAMAGED || newMod.getStatus() == Status.UNCERTAIN){
+	    		  
+	    		  modConfigs.addModuleItem(newMod.getModType());
+		    	  if(modConfigs.checkMinCond())
+		    	  {
+		    		/*This block will run when the minimum condition is met:
+		    		 * ALERT
+		    		 * Gives user the option to view two minimum habitat configurations (possibly use HistoryExample Lab) 
+		    		*/
+		    	  }
+		    	  else if(modConfigs.checkMaxCond()){
+		    		/*This block will run when the maximum condition is met:
+		    		 * ALERT
+		    		 * 
+		    	    */
+		    		
+		    	  }
+	    	  }
 	      }
+	      
+	      
 	    });
 	public LoggingModules(){
 		modStatus.addItem("UNDAMAGED");
