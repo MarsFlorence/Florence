@@ -17,27 +17,27 @@ public class MinMaxConditions {
 	
 	public void addModuleItem(Type module){
 		listOfMod.add(module);
-		if(module == Type.AIRLOCK)
+		if(module == Type.AIRLOCK) {
 			airlockCount++;
-		if(module == Type.CONTROL)
+		} else if(module == Type.CONTROL) {
 			controlCount++;
-		if(module == Type.POWER)
+		} else if(module == Type.POWER) {
 			powerCount++;
-		if(module == Type.FWS)
+		} else if(module == Type.FWS) {
 			fwsCount++;
-		if(module == Type.DORMITORY)
+		} else if(module == Type.DORMITORY) {
 			dormitoryCount++;
-		if(module == Type.CANTEEN)
+		} else if(module == Type.CANTEEN) {
 			canteenCount++;
-		if(module == Type.SANITATION)
+		} else if(module == Type.SANITATION) {
 			sanitationCount++;
-		if(module == Type.PLAIN)
+		} else if(module == Type.PLAIN) {
 			plainCount++;
-		if(module == Type.GR)
+		} else if(module == Type.GR) {
 			grCount++;
-		if(module == Type.MEDICAL)
+		} else { //(module == Type.MEDICAL)
 			medicalCount++;
-		
+		}
 	}
 	
 	public boolean checkMinCond(){
