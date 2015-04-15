@@ -7,14 +7,14 @@ public class Mapper {
 	private Module[][] moduleMap = new Module[99][99];
 	
 	public Mapper(){
-		for(int x = 0; x < 100; x++){
-			for(int y = 0; y < 100; y++){
+		for(int x = 0; x < 99; x++){
+			for(int y = 0; y < 99; y++){
 				moduleMap[x][y] = null;
 			}
 		}
 	}
 	
-	public Mapper(Module[] modules, int modCount){
+	public Mapper(ModuleLog modules, int modCount){
 		int moduleX;
 		int moduleY;
 		
@@ -27,9 +27,9 @@ public class Mapper {
 		//TODO Implement module storage with array.
 		int select = 0;
 		do {
-			moduleX = (int)modules[select].getXCoord();
-			moduleY = (int)modules[select].getYCoord();
-			moduleMap[moduleX][moduleY] = modules[select];
+			moduleX = (int)modules.getModule(select).getXCoord();
+			moduleY = (int)modules.getModule(select).getYCoord();
+			moduleMap[moduleX][moduleY] = modules.getModule(select);
 			select++;
 		} while (select < modCount);
 			
@@ -43,8 +43,8 @@ public class Mapper {
 	
 	private String findModule(Module findMod){
 		String search = "";
-		for(int finderX = 0; finderX < 100; finderX++){
-			for(int finderY = 0; finderY < 100; finderY++){
+		for(int finderX = 0; finderX < 99; finderX++){
+			for(int finderY = 0; finderY < 99; finderY++){
 				if(findMod.equals(moduleMap[finderX][finderY])){
 					search = finderX + " " + finderY;
 					finderY = 100;
