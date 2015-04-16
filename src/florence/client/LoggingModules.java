@@ -69,7 +69,7 @@ public class LoggingModules {
 		    		 * ALERT
 		    		 * Gives user the option to view two minimum habitat configurations (possibly use HistoryExample Lab) 
 		    		*/
-		    		  Window.alert("Min Config.");
+		    		  Window.alert("ALERT : Minimum configuration has been reached.");
 		    	  }
 		    	  else if(modConfigs.checkMaxCond()){
 		    		/*This block will run when the maximum condition is met:
