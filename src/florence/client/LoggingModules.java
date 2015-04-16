@@ -106,6 +106,8 @@ public class LoggingModules {
 		panel.add(yCoordLabel);
 		panel.add(modYCoord);
 		panel.add(logMod);
+		addTable();
+		panel.add(moduleTable);		
 	}
 	
 	public VerticalPanel LoggingModulesPanel(){
@@ -115,19 +117,23 @@ public class LoggingModules {
 	public void addTable(){
 		moduleTable.setBorderWidth(2);
 		moduleTable.setText(0, 0, "Module ID");
-		moduleTable.setText(0, 1, "Module Status");
-		moduleTable.setText(0, 2, "Module Orientation");
-		moduleTable.setText(0, 3, "Module X Coordinate");
-		moduleTable.setText(0, 4, "Module Y Coordinate");
+		moduleTable.setText(0, 1,"Module Type");
+		moduleTable.setText(0, 2, "Module Status");
+		moduleTable.setText(0, 3, "Module Orientation");
+		moduleTable.setText(0, 4, "Module X Coordinate");
+		moduleTable.setText(0, 5, "Module Y Coordinate");
 		int size = moduleLog.getSize();
-		for (int index = 0; index < size; index++){
-			Module currentMod = moduleLog.getModule(index);
-			moduleTable.setText(index + 1, 0, Integer.toString(currentMod.getId()));
-			moduleTable.setText(index + 1, 1, currentMod.getStatus().toString());
-			moduleTable.setText(index + 1, 2, Integer.toString(currentMod.getOrientation()));
-			moduleTable.setText(index + 1, 3, Double.toString(currentMod.getXCoord()));
-			moduleTable.setText(index + 1, 4, Double.toString(currentMod.getYCoord()));
+		if(moduleLog.getModule(0) != null){
+			for (int index = 1; index < size; index++){
+				Module currentMod = moduleLog.getModule(index);
+				moduleTable.setText(index + 1, 0, Integer.toString(currentMod.getId()));
+				moduleTable.setText(index + 1, 1, currentMod.getModType().toString());
+				moduleTable.setText(index + 1, 2, currentMod.getStatus().toString());
+				moduleTable.setText(index + 1, 3, Integer.toString(currentMod.getOrientation()));
+				moduleTable.setText(index + 1, 4, Double.toString(currentMod.getXCoord()));
+				moduleTable.setText(index + 1, 5, Double.toString(currentMod.getYCoord()));
+			}
 		}
-		panel.add(moduleTable);
+		//panel.add(moduleTable);
 	}
 }
