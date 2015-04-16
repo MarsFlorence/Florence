@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ModuleLog {
 	public ModuleLog(){
 		moduleLog = new ArrayList<Module>();
+		moduleLog.add(new Module(0, Status.DAMAGED, 0, 0.0, 0.0));
 	}
 	public void addModule(Module mod){
 		moduleLog.add(mod);
