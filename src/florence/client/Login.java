@@ -2,6 +2,10 @@ package florence.client;
 
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -84,7 +88,24 @@ public class Login {
 		return pan;
 	}
 	
+	private Date oldDate;
 	
+	public Date today(){
+		Date currentDate = new Date();
+		return currentDate;
+	}
+	
+	public void setOldDate(){
+		oldDate = new Date(2015, 4, 8);
+	}
+	
+	public boolean outdated(){
+		long dateDifference = today().getTime() - oldDate.getTime();
+		if(dateDifference / (1000*60*60*24) > 10){
+			return true;
+		};
+		return false;
+	}
 	
 	
 }
