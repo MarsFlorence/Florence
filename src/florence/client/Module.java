@@ -1,161 +1,218 @@
 package florence.client;
 
 import com.google.gwt.user.client.ui.Image;
-
+/**
+ * Class that deals with all individual Module information.
+ */
 public class Module {
-
-	public Module(int modId, Status modStatus, int modOrientation, double modXCoord, double modYCoord){
+	/**
+	 * The identification number of module.
+	 */
+	private int id;
+	/**
+	 * The current status of a module.
+	 */
+	private Status status;
+	/**
+	 * The orientation of a module, based on how many turns are
+	 * required to be standing upright.
+	 */
+	private int orientation;
+	/**
+	 * The x-coordinate of the module.
+	 */
+	private double xCoord;
+	/**
+	 * The y-coordinate of the module.
+	 */
+	private double yCoord;
+	
+	/**
+	 * Constructor that builds a new Module.
+	 * @param modId the ID of module
+	 * @param modStatus the Status of module
+	 * @param modOrientation the orientation of module
+	 * @param modXCoord the x coordinate of module
+	 * @param modYCoord the y coordinate of module
+	 */
+	public Module(int modId, Status modStatus,
+			int modOrientation, double modXCoord, double modYCoord) {
 		id = modId;
 		status = modStatus;
 		orientation = modOrientation;
 		xCoord = modXCoord;
 		yCoord = modYCoord;
 	}
-
-	public Module(){
+	/**
+	 * Constructor.
+	 */
+	public Module() {
 		
 	}
-	
-	public int getId(){
+	/**
+	 * Method that gets a Module's ID.
+	 * @return int the ID of a module
+	 */
+	public int getId() {
 		return id;
 	}
-	
-	public void setId(int modId){
-		if(modId >= 1 && modId <= 190){
+	/**
+	 * Method that sets a Module's ID.
+	 * @param modId the new ID of a module
+	 */
+	public void setId(int modId) {
+		if (modId >= 1 && modId <= 190) {
 			id = modId;
 		}
 	}
-	
-	public Type getModType(){
-	
-			if (id >= 1 && id <= 40){
-				return Type.PLAIN;
-			}
-			else if (id >= 61 && id <= 80){
-				return Type.DORMITORY;
-			}
-			else if (id >= 91 && id <= 100){
-				return Type.SANITATION;
-			}
-			else if (id >= 111 && id <= 120){
-				return Type.FWS;
-			}
-			else if (id >= 131 && id <= 134){
-				return Type.GR;					
-			}
-			else if (id >= 141 && id <= 144){
-				return Type.CANTEEN;
-			}
-			else if (id >= 151 && id <= 154){
-				return Type.POWER;
-			}
-			else if (id >= 161 && id <= 164){
-				return Type.CONTROL;
-			}
-			else if (id >= 171 && id <= 174){
-				return Type.AIRLOCK;
-			}
-			else if (id >= 181 && id <= 184){
-				return Type.MEDICAL;
-			}
-			else{
-				return null;
-			}
+	/**
+	 * Method that sets a Module's Type.
+	 * @return Type the type of module
+	 */
+	public Type getModType() {
+		if (id >= 1 && id <= 40) {
+			return Type.PLAIN;
+		} else if (id >= 61 && id <= 80) {
+			return Type.DORMITORY;
+		} else if (id >= 91 && id <= 100) {
+			return Type.SANITATION;
+		} else if (id >= 111 && id <= 120) {
+			return Type.FWS;
+		} else if (id >= 131 && id <= 134) {
+			return Type.GR;					
+		} else if (id >= 141 && id <= 144) {
+			return Type.CANTEEN;
+		} else if (id >= 151 && id <= 154) {
+			return Type.POWER;
+		} else if (id >= 161 && id <= 164) {
+			return Type.CONTROL;
+		} else if (id >= 171 && id <= 174) {
+			return Type.AIRLOCK;
+		} else if (id >= 181 && id <= 184) {
+			return Type.MEDICAL;
+		} else {
+			return null;
+		}
 	}
-	
-	public Status getStatus(){
+	/**
+	 * Method that gets a Module's status.
+	 * @return Status the status of a module
+	 */
+	public Status getStatus() {
 		return status;
 	}
-	
-	public void setStatus(Status modStatus){
+	/**
+	 * Method that sets a Module's status with STATUS.
+	 * @param modStatus the status of a module in Status form
+	 */
+	public void setStatus(Status modStatus) {
 		status = modStatus;
 	}
-	
-
-	
-	public void setStatus(String modStatus){
-		if(modStatus.equals("UNDAMAGED")){
+	/**
+	 * Method that sets a Module's status with a String.
+	 * @param modStatus the status of a module in string form
+	 */
+	public void setStatus(String modStatus) {
+		if (modStatus.equals("UNDAMAGED")) {
 			status = Status.UNDAMAGED;
-		}
-		else if(modStatus.equals("DAMAGED")){
+		} else if (modStatus.equals("DAMAGED")) {
 			status = Status.DAMAGED;
-		}
-		else if(modStatus.equals("UNCERTAIN")){
+		} else if (modStatus.equals("UNCERTAIN")) {
 			status = Status.UNCERTAIN;
 		}
 	}
-	
-	public int getOrientation(){
+	/**
+	 * Method that gets a Module's orientation.
+	 * @return orientation this is the orientation of module
+	 */
+	public int getOrientation() {
 		return orientation;
 	}
-	
-	public void setOrientation(int modOrientation){
-		if(modOrientation <= 2 && modOrientation >= 0){
+	/**
+	 * Method that sets a Module's orientation.
+	 * @param modOrientation this is the orientation of module
+	 */
+	public void setOrientation(int modOrientation) {
+		if (modOrientation <= 2 && modOrientation >= 0) {
 			orientation = modOrientation;
 		}
 	}
-	
-	public double getXCoord(){
+	/**
+	 * Method that gets a Module's X coordinate.
+	 * @return double this is the X coordinate
+	 */
+	public double getXCoord() {
 		return xCoord;
 	}
-	
-	public void setXCoord(double modXCoord){
+	/**
+	 * Method that sets a Module's X coordinate.
+	 * @param modXCoord this is the X coordinate
+	 */
+	public void setXCoord(double modXCoord) {
 		xCoord = modXCoord;
 	}
-	
-	public double getYCoord(){
+	/**
+	 * Method that gets a Module's Y coordinate.
+	 * @return double this is the Y coordinate
+	 */
+	public double getYCoord() {
 		return yCoord;
 	}
-	
-	public void setYCoord(double modYCoord){
+	/**
+	 * Method that sets a Module's Y coordinate.
+	 * @param modYCoord this is the Y coordinate
+	 */
+	public void setYCoord(double modYCoord) {
 		yCoord = modYCoord;
 	}
-	
-	public Image imageLocate(){
+	/**
+	 * Method that gets required image for a module.
+	 * @return Image the image that matches ID
+	 */
+	public Image imageLocate() {
 		final Image foundjpg;
-		if(id >= 1 && id <= 40){
+		if (id >= 1 && id <= 40) {
 			foundjpg = new Image("images/Plain.jpg");
-		}else if (id >= 61 && id <= 80){
+		} else if (id >= 61 && id <= 80) {
 			foundjpg =  new Image("images/Dormitory.jpg");
-		}else if (id >= 91 && id <= 100){
+		} else if (id >= 91 && id <= 100) {
 			foundjpg =  new Image("images/Sanitation.jpg");
-		}else if (id >= 111 && id <= 120){
+		} else if (id >= 111 && id <= 120) {
 			foundjpg =  new Image("images/Food.jpg");
-		}else if (id >= 131 && id <= 134){
+		} else if (id >= 131 && id <= 134) {
 			foundjpg =  new Image("images/Gym.jpg");
-		}else if (id >= 141 && id <= 144){
+		} else if (id >= 141 && id <= 144) {
 			foundjpg =  new Image("images/Canteen.jpg");
-		}else if (id >= 151 && id <= 154){
+		} else if (id >= 151 && id <= 154) {
 			foundjpg =  new Image("images/Power.jpg");
-		}else if (id >= 161 && id <= 164){
+		} else if (id >= 161 && id <= 164) {
 			foundjpg =  new Image("images/Control.jpg");
-		}else if (id >= 171 && id <= 174){
+		} else if (id >= 171 && id <= 174) {
 			foundjpg =  new Image("images/Airlock.jpg");
-		}else if (id >= 181 && id <= 184){
+		} else if (id >= 181 && id <= 184) {
 			foundjpg =  new Image("images/Medical.jpg");
-		}else{
+		} else {
 			foundjpg = null;
 		}
-		
+		foundjpg.setPixelSize(50, 50);
 		return foundjpg;
 	}
-	
-	public boolean validIDcheck(int checking){
+	/**
+	 * Method used to check if given ID is valid.
+	 * @param checking integer in question that user wants to know is a 
+	 * valid ID
+	 * @return true if valid ID, false if invalid ID
+	 */
+	public final boolean validIDcheck(int checking) {
 		Module compare = new Module(checking, Status.UNCERTAIN, 0, 0.0, 0.0);
 		boolean checked = true;
-		try{
-			if(compare.getModType() == null){
+		try {
+			if (compare.getModType() == null) {
 				checked = false;
 			}
-		}catch (NullPointerException exp){
-			
+		} catch (NullPointerException exp) {		
+			checked = false;
 		}
 		return checked;
 	}
-	
-	private int id;
-	private Status status;
-	private int orientation;
-	private double xCoord;
-	private double yCoord;
 }

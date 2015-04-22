@@ -9,46 +9,82 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
+/**
+ * Class that sets up module logging UI and checks
+ * the input of user.
+ */
 public class LoggingModules {
+	/**
+	 * The panel used for displaying module log.
+	 */
 	private VerticalPanel panel = new VerticalPanel();
+	/**
+	 * The module's ID input field.
+	 */
 	private TextBox modNum = new TextBox();
+	/**
+	 * The module's condition selection field.
+	 */
 	private ListBox modStatus = new ListBox();
+	/**
+	 * The module's orientation selection field.
+	 */
 	private ListBox modOrientation = new ListBox();
+	/**
+	 * The module's x-coordinate input field.
+	 */
 	private TextBox modXCoord = new TextBox();
+	/**
+	 * The module's y-coordinate input field.
+	 */
 	private TextBox modYCoord = new TextBox();
+	/**
+	 * The module object to be displayed to user.
+	 */
 	private ModuleLog moduleLog = new ModuleLog();
+	/**
+	 * The Table displaying logged modules.
+	 */
 	private FlexTable moduleTable = new FlexTable();
+	/**
+	 * The configuration conditions checker.
+	 */
 	private MinMaxConditions modConfigs = new MinMaxConditions();
+	/**
+	 * When triggered logs user's input after checking for errors.
+	 */
 	private Button logMod = new Button("Log Module", new ClickHandler() {
 	      public void onClick(ClickEvent event) {
 	    	  Module newMod = new Module();
 	    	  int currentID = Integer.parseInt(modNum.getValue());
 	    	  boolean allOkay = true;
-	    	  if(!moduleLog.containsModule(currentID)){
+	    	  if (!moduleLog.containsModule(currentID)) {
 	    		Module checking = new Module();
-	    		if(checking.validIDcheck(currentID)){
+	    		if (checking.validIDcheck(currentID)) {
 	    			newMod.setId(currentID);
-		    	  	newMod.setStatus(modStatus.getValue(modStatus.getSelectedIndex()));
-		    	  	newMod.setOrientation(Integer.parseInt(modOrientation.getValue(modOrientation.getSelectedIndex())));
-	    		}else{
+		    	  	newMod.setStatus(modStatus.getValue(
+		    	  			modStatus.getSelectedIndex()));
+		    	  	newMod.setOrientation(Integer.parseInt(
+		    	  			modOrientation.getValue(
+		    	  					modOrientation.getSelectedIndex())));
+	    		} else {
 	    			allOkay = false;
 	    		}
 	    	  	double x = Double.parseDouble(modXCoord.getValue());
 	    	  	double y = Double.parseDouble(modYCoord.getValue());
-	    	  	if((x < 99 && y < 99 && x > 0 && y > 0) && allOkay){
+	    	  	if ((x < 99 && y < 99 && x > 0 && y > 0) && allOkay) {
 	    	  		newMod.setXCoord(x);
 	    	  		newMod.setYCoord(y);
-	    	  	}else{
+	    	  	} else {
 	    	  		allOkay = false;
 	    	  	}
-	    	  	if(allOkay){
+	    	  	if (allOkay) {
 	    	  		moduleLog.addModule(newMod);
 	    	  		addTable();
-	    	  	}else{
+	    	  	} else {
 	    	  		Window.alert("Module not added. Check ID and Coordinates.");
 	    	  	}
-	    	  }else{
+	    	  } else {
 	    		  Window.alert("This module has already been logged.");
 	    	  }
 	    	  
@@ -59,23 +95,28 @@ public class LoggingModules {
 	    	  modXCoord.setValue("");
 	    	  modYCoord.setValue("");
 	    	 
-	    	  //Calls MinMaxConfigs functions here only if the module logged is not DAMAGED
-	    	  if (newMod.getStatus() == Status.UNDAMAGED || newMod.getStatus() == Status.UNCERTAIN){
+	    	  //Calls MinMaxConfigs functions here 
+	    	  //only if the module logged is not DAMAGED
+	    	  if (newMod.getStatus() == Status.UNDAMAGED 
+	    			  || newMod.getStatus() == Status.UNCERTAIN) {
 	    		  
 	    		  modConfigs.addModuleItem(newMod.getModType());
-		    	  if(modConfigs.checkMinCond())
-		    	  {
+		    	  if (modConfigs.checkMinCond()) {
 		    		/*This block will run when the minimum condition is met:
 		    		 * ALERT
-		    		 * Gives user the option to view two minimum habitat configurations (possibly use HistoryExample Lab) 
+		    		 * Gives user the option to view two minimum habitat
+		    		 * configurations (possibly use HistoryExample Lab) 
 		    		*/
-		    		  Window.alert("ALERT : Minimum configuration has been reached.");
+		    		  Window.alert("ALERT :"
+		    		  		+ " Minimum configuration has been reached.");
 		    	  }
-		    	  else if(modConfigs.checkMaxCond()){
+		    	  else if (modConfigs.checkMaxCond()) {
 		    		/*This block will run when the maximum condition is met:
 		    		 * ALERT
 		    		 * 
 		    	    */
+		    		  Window.alert("ALERT :"
+			    		  		+ " Maximum configuration has been reached.");
 		    		
 		    	  }
 	    	  }
@@ -83,7 +124,10 @@ public class LoggingModules {
 	      
 	      
 	    });
-	public LoggingModules(){
+	/**
+	 * Constructor that builds the Logging Module Page UI.
+	 */
+	public LoggingModules() {
 		modStatus.addItem("UNDAMAGED");
 		modStatus.addItem("DAMAGED");
 		modStatus.addItem("UNCERTAIN");
@@ -109,29 +153,40 @@ public class LoggingModules {
 		addTable();
 		panel.add(moduleTable);		
 	}
-	
-	public VerticalPanel LoggingModulesPanel(){
+	/**
+	 * Method that gets the UI panel.
+	 * @return VerticalPanel the UI panel for logging modules
+	 */
+	public VerticalPanel LoggingModulesPanel() {
 		return panel;
 	}
-	
-	public void addTable(){
+	/**
+	 * Method that builds table of logged modules.
+	 */
+	public void addTable() {
 		moduleTable.setBorderWidth(2);
 		moduleTable.setText(0, 0, "Module ID");
-		moduleTable.setText(0, 1,"Module Type");
+		moduleTable.setText(0, 1, "Module Type");
 		moduleTable.setText(0, 2, "Module Status");
 		moduleTable.setText(0, 3, "Module Orientation");
 		moduleTable.setText(0, 4, "Module X Coordinate");
 		moduleTable.setText(0, 5, "Module Y Coordinate");
 		int size = moduleLog.getSize();
-		if(moduleLog.getModule(0) != null){
-			for (int index = 1; index < size; index++){
+		if (moduleLog.getModule(0) != null) {
+			for (int index = 1; index < size; index++) {
 				Module currentMod = moduleLog.getModule(index);
-				moduleTable.setText(index + 1, 0, Integer.toString(currentMod.getId()));
-				moduleTable.setText(index + 1, 1, currentMod.getModType().toString());
-				moduleTable.setText(index + 1, 2, currentMod.getStatus().toString());
-				moduleTable.setText(index + 1, 3, Integer.toString(currentMod.getOrientation()));
-				moduleTable.setText(index + 1, 4, Double.toString(currentMod.getXCoord()));
-				moduleTable.setText(index + 1, 5, Double.toString(currentMod.getYCoord()));
+				moduleTable.setText(index + 1, 0,
+						Integer.toString(currentMod.getId()));
+				moduleTable.setText(index + 1, 1,
+						currentMod.getModType().toString());
+				moduleTable.setText(index + 1, 2,
+						currentMod.getStatus().toString());
+				moduleTable.setText(index + 1, 3,
+						Integer.toString(currentMod.getOrientation()));
+				moduleTable.setText(index + 1, 4,
+						Double.toString(currentMod.getXCoord()));
+				moduleTable.setText(index + 1, 5,
+						Double.toString(currentMod.getYCoord()));
 			}
 		}
 		//panel.add(moduleTable);
