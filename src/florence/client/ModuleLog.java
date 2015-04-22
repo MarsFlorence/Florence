@@ -1,6 +1,9 @@
 package florence.client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.google.gwt.storage.client.Storage;
 /**
  * Class that deals with storing all modules in an array.
  */
@@ -17,6 +20,7 @@ public class ModuleLog {
 	 * @param mod the module the be added to moduleLog
 	 */
 	public void addModule(Module mod) {
+  		saveToLocalStorage(mod);
 		moduleLog.add(mod);
 	}
 	/**
@@ -73,8 +77,20 @@ public class ModuleLog {
 		} while (counter < this.getSize() && found == false);
 		return found;
 	}
+	
+	private void saveToLocalStorage(Module newMod){
+  		moduleStore = Storage.getLocalStorageIfSupported();
+  		if (moduleStore != null) {
+  			//In the form: ID,Status,Orientation,Xcoord,Ycoord
+  			String moduleInfo = newMod.getId() + "," + newMod.getStatus().toString()
+  					+ "," + newMod.getOrientation() + "," + newMod.getXCoord() + "," + newMod.getYCoord();
+  			moduleStore.setItem(String.valueOf(newMod.getId()), moduleInfo);
+  		}			
+	}
+
 	/**
 	 * Array where ModuleLog stores its modules.
 	 */
 	private ArrayList<Module> moduleLog;
+	private Storage moduleStore = null;
 }
