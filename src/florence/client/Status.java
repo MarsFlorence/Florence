@@ -1,5 +1,18 @@
 package florence.client;
-
+/**
+ * Enumerator class that specifies module condition.
+ */
 public enum Status {
-	UNDAMAGED, DAMAGED, UNCERTAIN
+	/**
+	 * Module is undamaged.
+	 */
+	UNDAMAGED,
+	/**
+	 * Module is damaged.
+	 */
+	DAMAGED,
+	/**
+	 * Module condition is uncertain.
+	 */
+	UNCERTAIN
 }

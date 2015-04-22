@@ -1,51 +1,72 @@
 package florence.client;
 
-import florence.client.Module;
-
+/**
+ * Class that is used for storing module locations on map.
+ * 
+ */
 public class Mapper {
-	
+	/**
+	 * This variable is used as the map's layout.
+	 */
 	private Module[][] moduleMap = new Module[99][99];
-	
-	public Mapper(){
-		for(int x = 0; x < 99; x++){
-			for(int y = 0; y < 99; y++){
+	/**
+	 * This default constructor ensures that all map values
+	 * are null.
+	 */
+	public Mapper() {
+		for (int x = 0; x < 99; x++) {
+			for (int y = 0; y < 99; y++) {
 				moduleMap[x][y] = null;
 			}
 		}
 	}
-	
-	public Mapper(ModuleLog modules, int modCount){
+	/**
+	 * Constructs a new Mapper that places modules into map.
+	 * 
+	 * @param modules the new list of modules to add to map
+	 * @param modCount the number of modules in log
+	 */
+	public Mapper(ModuleLog modules, int modCount) {
 		int moduleX;
 		int moduleY;
 		
 		
-		for(int x = 0; x < 99; x++){
-			for(int y = 0; y < 99; y++){
+		for (int x = 0; x < 99; x++) {
+			for (int y = 0; y < 99; y++) {
 				moduleMap[x][y] = null;
 			}
 		}
 		//TODO Implement module storage with array.
 		int select = 0;
 		do {
-			moduleX = (int)modules.getModule(select).getXCoord();
-			moduleY = (int)modules.getModule(select).getYCoord();
+			moduleX = (int) modules.getModule(select).getXCoord();
+			moduleY = (int) modules.getModule(select).getYCoord();
 			moduleMap[moduleX][moduleY] = modules.getModule(select);
 			select++;
 		} while (select < modCount);
 			
 	}
-	
-	public void addModule(Module newMod){
-		int moduleX = (int)newMod.getXCoord();
-		int moduleY = (int)newMod.getYCoord();
+	/**
+	 * Adds given module to module map.
+	 * 
+	 * @param newMod the module the user wishes to add
+	 */
+	public void addModule(Module newMod) {
+		int moduleX = (int) newMod.getXCoord();
+		int moduleY = (int) newMod.getYCoord();
 		moduleMap[moduleX][moduleY] = newMod;
 	}
-	
-	private String findModule(Module findMod){
+	/**
+	 * Finds given module in module map.
+	 * 
+	 * @param findMod is the module user wishes to find
+	 * @return String of coordinates of module
+	 */
+	private String findModule(Module findMod) {
 		String search = "";
-		for(int finderX = 0; finderX < 99; finderX++){
-			for(int finderY = 0; finderY < 99; finderY++){
-				if(findMod.equals(moduleMap[finderX][finderY])){
+		for (int finderX = 0; finderX < 99; finderX++) {
+			for (int finderY = 0; finderY < 99; finderY++) {
+				if (findMod.equals(moduleMap[finderX][finderY])) {
 					search = finderX + " " + finderY;
 					finderY = 100;
 					finderX = 100;
@@ -54,12 +75,17 @@ public class Mapper {
 		}
 		return search;
 	}
-	
-	public boolean removeModule(Module removeMod){
+	/**
+	 * Removes Module from module map.
+	 * 
+	 * @param removeMod the module the user wishes to remove
+	 * @return true if removed, false if not removed
+	 */
+	public final boolean removeModule(Module removeMod) {
 		boolean done = false;
 		//If location == "" then module was not found
 		String location = findModule(removeMod);
-		if(location != ""){
+		if (location != "") {
 			int xcoor = Integer.parseInt(location, location.indexOf(' '));
 			int ycoor = Integer.parseInt(location, location.indexOf(' '));
 			moduleMap[xcoor][ycoor] = null;
@@ -67,8 +93,12 @@ public class Mapper {
 		}
 		return done;
 	}
-	
-	public Module[][] getMap(){
+	/**
+	 * getMap() returns the current module map.
+	 * This class is in the <code>client</code> package because reasons.
+	 * @return Module[][] This returns stored moduleMap.
+	 */
+	public final Module[][] getMap() {
 		return moduleMap;
 	}
 	
