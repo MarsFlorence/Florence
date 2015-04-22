@@ -1,8 +1,12 @@
 package florence.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.core.java.util.Arrays;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
@@ -14,6 +18,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * the input of user.
  */
 public class LoggingModules {
+	
+	/**
+	 * The moduleStore object to save to html5
+	 */
+	private Storage moduleStore = null;
 	/**
 	 * The panel used for displaying module log.
 	 */
@@ -152,6 +161,19 @@ public class LoggingModules {
 		panel.add(logMod);
 		addTable();
 		panel.add(moduleTable);		
+		
+		//Retrieve Data From local storage and add it to the table
+		moduleStore = Storage.getLocalStorageIfSupported();
+		if (moduleStore != null) {
+			for (int i = 0; i < moduleStore.getLength(); i++) {
+				String key = moduleStore.key(i);
+				String value = moduleStore.getItem(key);		
+				Module loadedModule = loadFromLocalStorage(value);
+    	  		moduleStore.removeItem(key);
+    	  		moduleLog.addModule(loadedModule);
+    	  		addTable();
+			}
+		}	
 	}
 	/**
 	 * Method that gets the UI panel.
@@ -190,5 +212,22 @@ public class LoggingModules {
 			}
 		}
 		//panel.add(moduleTable);
+	}
+	
+	//Returns an initialized module based on the information from the key-value found in local storage, otherwise returns null
+	private Module loadFromLocalStorage(String moduleInfo){
+		Module returnModule = new Module();
+		String[] elephantList = moduleInfo.split(",");
+		String id = elephantList[0];
+		String status = elephantList[1];
+		String turns = elephantList[2];
+		String x = elephantList[3];
+		String y = elephantList[4];
+		returnModule.setId(Integer.valueOf(id).intValue());
+		returnModule.setOrientation(Integer.valueOf(turns).intValue());
+		returnModule.setStatus(status);
+		returnModule.setXCoord(Double.parseDouble(x));
+		returnModule.setYCoord(Double.valueOf(y));
+		return returnModule;
 	}
 }
