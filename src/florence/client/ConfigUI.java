@@ -2,6 +2,7 @@ package florence.client;
 
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 /**
  * Class that is used for setting up module map UI.
  * 
@@ -10,7 +11,7 @@ public class ConfigUI {
 	/**
 	 * The grid size of map.
 	 */
-	private final int gridSize = 99;
+	private final int gridSize = 100;
 	/**
 	 * Sets up an empty Grid for images to be displayed.
 	 */
@@ -30,7 +31,11 @@ public class ConfigUI {
 				current = extractor[x][y];
 				if (current != null) {
 					Panel newPicture = null;
-					newPicture.add(current.imageLocate());
+					try {
+						newPicture.add(current.imageLocate());
+					} catch (NullPointerException ex) {
+						
+					}
 					mapGrid.setWidget(x, y, newPicture);
 				}
 			}
@@ -43,5 +48,13 @@ public class ConfigUI {
 	 */
 	public final Grid makeConfig() {
 		return mapGrid;
+	}
+	
+	public ScrollPanel makeMap(){
+		ScrollPanel newPanel = new ScrollPanel();
+		mapGrid.setVisible(true);
+		newPanel.add(mapGrid);
+		newPanel.setVisible(true);
+		return newPanel;
 	}
 }

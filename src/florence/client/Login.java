@@ -101,11 +101,14 @@ public class Login {
 		    		  //created until the user logs in.
 		    		  //Please let me know if you plan on
 		    		  //changing this code - Jake
-		    		    tabPanel.add(new LoggingModules().LoggingModulesPanel(),
+		    		  LoggingModules theLog = new LoggingModules();
+		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
+		    		  
+		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
 		    		    tabPanel.add(new HTML("Configuration"),
 		    		    		"Configuration");
-		    		    tabPanel.add(new HTML("Opitimal Routing"),
+		    		    tabPanel.add(map.makeMap(),
 		    		    		"Optimal Routing");	    		  
 		    		  if (tabPanel.getTabWidget(1) != null) {
 		    			  tabPanel.selectTab(1);

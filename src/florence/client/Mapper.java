@@ -5,17 +5,18 @@ package florence.client;
  * 
  */
 public class Mapper {
+	private int dimensions = 100;
 	/**
 	 * This variable is used as the map's layout.
 	 */
-	private Module[][] moduleMap = new Module[99][99];
+	private Module[][] moduleMap = new Module[dimensions][dimensions];
 	/**
 	 * This default constructor ensures that all map values
 	 * are null.
 	 */
 	public Mapper() {
-		for (int x = 0; x < 99; x++) {
-			for (int y = 0; y < 99; y++) {
+		for (int x = 0; x < dimensions; x++) {
+			for (int y = 0; y < dimensions; y++) {
 				moduleMap[x][y] = null;
 			}
 		}
@@ -29,10 +30,8 @@ public class Mapper {
 	public Mapper(ModuleLog modules, int modCount) {
 		int moduleX;
 		int moduleY;
-		
-		
-		for (int x = 0; x < 99; x++) {
-			for (int y = 0; y < 99; y++) {
+		for (int x = 0; x < dimensions; x++) {
+			for (int y = 0; y < dimensions; y++) {
 				moduleMap[x][y] = null;
 			}
 		}
@@ -64,12 +63,12 @@ public class Mapper {
 	 */
 	private String findModule(Module findMod) {
 		String search = "";
-		for (int finderX = 0; finderX < 99; finderX++) {
-			for (int finderY = 0; finderY < 99; finderY++) {
+		for (int finderX = 0; finderX < dimensions; finderX++) {
+			for (int finderY = 0; finderY < dimensions; finderY++) {
 				if (findMod.equals(moduleMap[finderX][finderY])) {
 					search = finderX + " " + finderY;
-					finderY = 100;
-					finderX = 100;
+					finderY = dimensions;
+					finderX = dimensions;
 				}
 			}
 		}

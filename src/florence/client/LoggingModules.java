@@ -1,16 +1,14 @@
 package florence.client;
 
-import java.util.ArrayList;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.core.java.util.Arrays;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 /**
@@ -23,6 +21,10 @@ public class LoggingModules {
 	 * The moduleStore object to save to html5
 	 */
 	private Storage moduleStore = null;
+	/**
+	 * The panel used for scrolling through module log.
+	 */
+	private ScrollPanel tableScroll = new ScrollPanel();
 	/**
 	 * The panel used for displaying module log.
 	 */
@@ -160,7 +162,8 @@ public class LoggingModules {
 		panel.add(modYCoord);
 		panel.add(logMod);
 		addTable();
-		panel.add(moduleTable);		
+		panel.add(moduleTable);
+		tableScroll.add(panel);
 		
 		//Retrieve Data From local storage and add it to the table
 		moduleStore = Storage.getLocalStorageIfSupported();
@@ -179,8 +182,8 @@ public class LoggingModules {
 	 * Method that gets the UI panel.
 	 * @return VerticalPanel the UI panel for logging modules
 	 */
-	public VerticalPanel LoggingModulesPanel() {
-		return panel;
+	public ScrollPanel LoggingModulesPanel() {
+		return tableScroll;
 	}
 	/**
 	 * Method that builds table of logged modules.
@@ -229,5 +232,9 @@ public class LoggingModules {
 		returnModule.setXCoord(Double.parseDouble(x));
 		returnModule.setYCoord(Double.valueOf(y));
 		return returnModule;
+	}
+	
+	public ModuleLog getModLog(){
+		return moduleLog;
 	}
 }
