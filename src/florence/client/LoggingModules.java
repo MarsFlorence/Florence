@@ -17,6 +17,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class LoggingModules {
 	
+	private ConfigUI mapDisplay = null;
+	
 	/**
 	 * The moduleStore object to save to html5
 	 */
@@ -61,6 +63,7 @@ public class LoggingModules {
 	 * The configuration conditions checker.
 	 */
 	private MinMaxConditions modConfigs = new MinMaxConditions();
+	
 	/**
 	 * When triggered logs user's input after checking for errors.
 	 */
@@ -92,6 +95,8 @@ public class LoggingModules {
 	    	  	if (allOkay) {
 	    	  		moduleLog.addModule(newMod);
 	    	  		addTable();
+	    	  		mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+	    	  		//TODO Stop modules from being placed on top of each other.
 	    	  	} else {
 	    	  		Window.alert("Module not added. Check ID and Coordinates.");
 	    	  	}
@@ -236,5 +241,9 @@ public class LoggingModules {
 	
 	public ModuleLog getModLog(){
 		return moduleLog;
+	}
+	
+	public void attachMap(ConfigUI map){
+		mapDisplay = map;
 	}
 }
