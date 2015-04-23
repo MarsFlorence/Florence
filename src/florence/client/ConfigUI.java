@@ -30,13 +30,11 @@ public class ConfigUI {
 			for (int y = 0; y < gridSize; y++) {
 				current = extractor[x][y];
 				if (current != null) {
-					Panel newPicture = null;
 					try {
-						newPicture.add(current.imageLocate());
+						mapGrid.setWidget(x, y, current.imageLocate());
 					} catch (NullPointerException ex) {
 						
 					}
-					mapGrid.setWidget(x, y, newPicture);
 				}
 			}
 		}
