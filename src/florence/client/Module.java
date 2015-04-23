@@ -172,7 +172,8 @@ public class Module {
 	public Image imageLocate() {
 		final Image foundjpg;
 		if (id >= 1 && id <= 40) {
-			foundjpg = new Image("images/Plain.jpg");
+			//foundjpg = new Image("images/Plain.jpg");
+			foundjpg = new Image("http://stylonica.com/wp-content/uploads/2014/02/Free-Wallpaper-Nature-Scenes.jpg");
 		} else if (id >= 61 && id <= 80) {
 			foundjpg =  new Image("images/Dormitory.jpg");
 		} else if (id >= 91 && id <= 100) {
@@ -194,7 +195,12 @@ public class Module {
 		} else {
 			foundjpg = null;
 		}
-		foundjpg.setPixelSize(50, 50);
+		try{
+			foundjpg.setPixelSize(50, 50);
+		} catch (NullPointerException ex) {
+			
+		}
+		
 		return foundjpg;
 	}
 	/**
