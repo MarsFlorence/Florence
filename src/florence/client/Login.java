@@ -103,6 +103,7 @@ public class Login {
 		    		  //changing this code - Jake
 		    		  LoggingModules theLog = new LoggingModules();
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
+		    		  theLog.attachMap(map);
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");

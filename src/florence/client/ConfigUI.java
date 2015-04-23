@@ -48,7 +48,25 @@ public class ConfigUI {
 		return mapGrid;
 	}
 	
-	public ScrollPanel makeMap(){
+	public void updateMap(ModuleLog newLog, int newSize) {
+		Mapper theMap = new Mapper(newLog, newSize);
+		Module[][] extractor = theMap.getMap();
+		Module current;		
+		for (int x = 0; x < gridSize; x++) {
+			for (int y = 0; y < gridSize; y++) {
+				current = extractor[x][y];
+				if (current != null) {
+					try {
+						mapGrid.setWidget(x, y, current.imageLocate());
+					} catch (NullPointerException ex) {
+						
+					}
+				}
+			}
+		}
+	}
+	
+	public ScrollPanel makeMap() {
 		ScrollPanel newPanel = new ScrollPanel();
 		mapGrid.setVisible(true);
 		newPanel.add(mapGrid);
