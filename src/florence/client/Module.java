@@ -1,6 +1,5 @@
 package florence.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Image;
 /**
  * Class that deals with all individual Module information.
