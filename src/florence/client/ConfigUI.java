@@ -1,7 +1,6 @@
 package florence.client;
 
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 /**
  * Class that is used for setting up module map UI.

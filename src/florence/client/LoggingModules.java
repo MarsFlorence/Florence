@@ -1,5 +1,8 @@
 package florence.client;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
+import com.allen_sauer.gwt.voices.client.SoundType;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.storage.client.Storage;
@@ -63,6 +66,16 @@ public class LoggingModules {
 	 * The configuration conditions checker.
 	 */
 	private MinMaxConditions modConfigs = new MinMaxConditions();
+	/**
+	 * Handles sound.
+	 */
+	private SoundController soundControl = new SoundController();
+	
+	/**
+	 * 
+	 */
+	private Sound confirmation;
+	
 	
 	/**
 	 * When triggered logs user's input after checking for errors.
@@ -93,6 +106,7 @@ public class LoggingModules {
 	    	  		allOkay = false;
 	    	  	}
 	    	  	if (allOkay) {
+	    	  		confirmation.play();
 	    	  		moduleLog.addModule(newMod);
 	    	  		addTable();
 	    	  		mapDisplay.updateMap(moduleLog, moduleLog.getSize());
@@ -166,6 +180,9 @@ public class LoggingModules {
 		panel.add(yCoordLabel);
 		panel.add(modYCoord);
 		panel.add(logMod);
+		soundControl.setPreferredSoundTypes(SoundType.WEB_AUDIO, SoundType.FLASH, SoundType.HTML5);
+		soundControl.setDefaultVolume(100);
+		confirmation = soundControl.createSound(Sound.MIME_TYPE_AUDIO_OGG_SPEEX, "sound/LogSave.ogg");
 		addTable();
 		panel.add(moduleTable);
 		tableScroll.add(panel);
