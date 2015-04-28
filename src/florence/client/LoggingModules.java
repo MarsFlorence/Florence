@@ -1,5 +1,8 @@
 package florence.client;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
+import com.allen_sauer.gwt.voices.client.SoundType;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.storage.client.Storage;
@@ -16,6 +19,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * the input of user.
  */
 public class LoggingModules {
+	
+	private ConfigUI mapDisplay = null;
 	
 	/**
 	 * The moduleStore object to save to html5
@@ -66,6 +71,17 @@ public class LoggingModules {
 	 */
 	private MinMaxConditions modConfigs = new MinMaxConditions();
 	/**
+	 * Handles sound.
+	 */
+	private SoundController soundControl = new SoundController();
+	
+	/**
+	 * 
+	 */
+	private Sound confirmation;
+	
+	
+	/**
 	 * When triggered logs user's input after checking for errors.
 	 */
 	private Button logMod = new Button("Log Module", new ClickHandler() {
@@ -94,8 +110,11 @@ public class LoggingModules {
 	    	  		allOkay = false;
 	    	  	}
 	    	  	if (allOkay) {
+	    	  		confirmation.play();
 	    	  		moduleLog.addModule(newMod);
 	    	  		addTable();
+	    	  		mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+	    	  		//TODO Stop modules from being placed on top of each other.
 	    	  	} else {
 	    	  		Window.alert("Module not added. Check ID and Coordinates.");
 	    	  	}
@@ -174,6 +193,9 @@ public class LoggingModules {
 		panel.add(yCoordLabel);
 		panel.add(modYCoord);
 		panel.add(logMod);
+		soundControl.setPreferredSoundTypes(SoundType.WEB_AUDIO, SoundType.FLASH, SoundType.HTML5);
+		soundControl.setDefaultVolume(100);
+		confirmation = soundControl.createSound(Sound.MIME_TYPE_AUDIO_OGG_SPEEX, "sound/LogSave.ogg");
 		addTable();
 		panel.add(moduleTable);
 		panel.add(removeModLabel);
@@ -254,5 +276,9 @@ public class LoggingModules {
 	
 	public ModuleLog getModLog(){
 		return moduleLog;
+	}
+	
+	public void attachMap(ConfigUI map){
+		mapDisplay = map;
 	}
 }

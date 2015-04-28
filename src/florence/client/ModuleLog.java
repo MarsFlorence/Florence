@@ -1,7 +1,6 @@
 package florence.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.google.gwt.storage.client.Storage;
 /**

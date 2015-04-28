@@ -170,30 +170,29 @@ public class Module {
 	 * @return Image the image that matches ID
 	 */
 	public Image imageLocate() {
-		final Image foundjpg;
+		final Image foundjpg = new Image();
 		if (id >= 1 && id <= 40) {
-			//foundjpg = new Image("images/Plain.jpg");
-			foundjpg = new Image("http://stylonica.com/wp-content/uploads/2014/02/Free-Wallpaper-Nature-Scenes.jpg");
+			foundjpg.setUrl("images/Plain.jpg");
 		} else if (id >= 61 && id <= 80) {
-			foundjpg =  new Image("images/Dormitory.jpg");
+			foundjpg.setUrl("images/Dormitory.jpg");
 		} else if (id >= 91 && id <= 100) {
-			foundjpg =  new Image("images/Sanitation.jpg");
+			foundjpg.setUrl("images/Sanitation.jpg");
 		} else if (id >= 111 && id <= 120) {
-			foundjpg =  new Image("images/Food.jpg");
+			foundjpg.setUrl("images/Food.jpg");
 		} else if (id >= 131 && id <= 134) {
-			foundjpg =  new Image("images/Gym.jpg");
+			foundjpg.setUrl("images/Gym.jpg");
 		} else if (id >= 141 && id <= 144) {
-			foundjpg =  new Image("images/Canteen.jpg");
+			foundjpg.setUrl("images/Canteen.jpg");
 		} else if (id >= 151 && id <= 154) {
-			foundjpg =  new Image("images/Power.jpg");
+			foundjpg.setUrl("images/Power.jpg");
 		} else if (id >= 161 && id <= 164) {
-			foundjpg =  new Image("images/Control.jpg");
+			foundjpg.setUrl("images/Control.jpg");
 		} else if (id >= 171 && id <= 174) {
-			foundjpg =  new Image("images/Airlock.jpg");
+			foundjpg.setUrl("images/Airlock.jpg");
 		} else if (id >= 181 && id <= 184) {
-			foundjpg =  new Image("images/Medical.jpg");
+			foundjpg.setUrl("images/Medical.jpg");
 		} else {
-			foundjpg = null;
+			//foundjpg = null;
 		}
 		try{
 			foundjpg.setPixelSize(50, 50);

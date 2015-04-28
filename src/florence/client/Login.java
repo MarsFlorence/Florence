@@ -58,7 +58,7 @@ public class Login {
 	 */
 	public Login(final TabLayoutPanel tabPanel) {	   
 		Label welcomeMessage = new Label(
-				"Welcome to the Mars Habitat Control System.");
+				"Welcome to the Mars Habitat Configuration System.");
 		welcomeMessage.addStyleName("gwt-Label-Header");
 		welcomeMessage.setStylePrimaryName("gwt-Label-Header");
 		pan.add(welcomeMessage);
@@ -109,6 +109,7 @@ public class Login {
 		    		  //changing this code - Jake
 		    		  LoggingModules theLog = new LoggingModules();
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
+		    		  theLog.attachMap(map);
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
