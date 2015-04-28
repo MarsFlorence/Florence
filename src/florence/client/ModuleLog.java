@@ -12,7 +12,6 @@ public class ModuleLog {
 	 */
 	public ModuleLog() {
 		moduleLog = new ArrayList<Module>();
-		//moduleLog.add(new Module(0, Status.DAMAGED, 0, 0.0, 0.0));
 	}
 	/**
 	 * Method that adds module to moduleLog array.

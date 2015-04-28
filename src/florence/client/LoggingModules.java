@@ -159,6 +159,7 @@ public class LoggingModules {
 	      
 	    });
 	
+		//TODO remove deleted module from map
 		private Button deleteMod = new Button("Delete", new ClickHandler() {
 		      public void onClick(ClickEvent event) {
 		    	  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
@@ -254,7 +255,6 @@ public class LoggingModules {
 			}
 		}
 		}
-		//panel.add(moduleTable);
 	}
 	
 	//Returns an initialized module based on the information from the key-value found in local storage, otherwise returns null

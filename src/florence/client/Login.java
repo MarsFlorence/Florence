@@ -3,7 +3,6 @@ package florence.client;
 
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -110,6 +109,7 @@ public class Login {
 		    		  LoggingModules theLog = new LoggingModules();
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
 		    		  theLog.attachMap(map);
+		    		  
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
