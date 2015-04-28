@@ -58,6 +58,10 @@ public class LoggingModules {
 	 */
 	private FlexTable moduleTable = new FlexTable();
 	/**
+	 * Field for deleting modules
+	 */
+	private TextBox deleteModId = new TextBox();
+	/**
 	 * The configuration conditions checker.
 	 */
 	private MinMaxConditions modConfigs = new MinMaxConditions();
@@ -135,6 +139,14 @@ public class LoggingModules {
 	      
 	      
 	    });
+	
+		private Button deleteMod = new Button("Delete", new ClickHandler() {
+		      public void onClick(ClickEvent event) {
+		    	  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
+		    	  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
+		    	  addTable();
+		      }
+		});
 	/**
 	 * Constructor that builds the Logging Module Page UI.
 	 */
@@ -150,6 +162,7 @@ public class LoggingModules {
 		Label numOrientation = new Label("Module Orientation:");
 		Label xCoordLabel = new Label("Module X Coordinate:");
 		Label yCoordLabel = new Label("Module Y Coordinate:");
+		Label removeModLabel = new Label("Remove Module");
 		panel.add(numLabel);
 		panel.add(modNum);
 		panel.add(statusLabel);
@@ -163,6 +176,9 @@ public class LoggingModules {
 		panel.add(logMod);
 		addTable();
 		panel.add(moduleTable);
+		panel.add(removeModLabel);
+		panel.add(deleteModId);
+		panel.add(deleteMod);
 		tableScroll.add(panel);
 		
 		//Retrieve Data From local storage and add it to the table
@@ -196,9 +212,10 @@ public class LoggingModules {
 		moduleTable.setText(0, 3, "Module Orientation");
 		moduleTable.setText(0, 4, "Module X Coordinate");
 		moduleTable.setText(0, 5, "Module Y Coordinate");
+		if(moduleLog != null){
 		int size = moduleLog.getSize();
 		if (moduleLog.getModule(0) != null) {
-			for (int index = 1; index < size; index++) {
+			for (int index = 0; index < size; index++) {
 				Module currentMod = moduleLog.getModule(index);
 				moduleTable.setText(index + 1, 0,
 						Integer.toString(currentMod.getId()));
@@ -213,6 +230,7 @@ public class LoggingModules {
 				moduleTable.setText(index + 1, 5,
 						Double.toString(currentMod.getYCoord()));
 			}
+		}
 		}
 		//panel.add(moduleTable);
 	}
