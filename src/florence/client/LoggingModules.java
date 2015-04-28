@@ -110,7 +110,6 @@ public class LoggingModules {
 	    	  		allOkay = false;
 	    	  	}
 	    	  	if (allOkay) {
-	    	  		confirmation.play();
 	    	  		moduleLog.addModule(newMod);
 	    	  		addTable();
 	    	  		mapDisplay.updateMap(moduleLog, moduleLog.getSize());
@@ -165,6 +164,7 @@ public class LoggingModules {
 		    	  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
 		    	  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
 		    	  addTable();
+		    	  confirmation.play();
 		      }
 		});
 	/**
