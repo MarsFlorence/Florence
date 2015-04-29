@@ -1,8 +1,5 @@
 package florence.client;
 
-import com.allen_sauer.gwt.voices.client.Sound;
-import com.allen_sauer.gwt.voices.client.SoundController;
-import com.allen_sauer.gwt.voices.client.SoundType;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.storage.client.Storage;
@@ -19,8 +16,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * the input of user.
  */
 public class LoggingModules {
-	
-	private ConfigUI mapDisplay = null;
 	
 	/**
 	 * The moduleStore object to save to html5
@@ -63,24 +58,9 @@ public class LoggingModules {
 	 */
 	private FlexTable moduleTable = new FlexTable();
 	/**
-	 * Field for deleting modules
-	 */
-	private TextBox deleteModId = new TextBox();
-	/**
 	 * The configuration conditions checker.
 	 */
 	private MinMaxConditions modConfigs = new MinMaxConditions();
-	/**
-	 * Handles sound.
-	 */
-	private SoundController soundControl = new SoundController();
-	
-	/**
-	 * 
-	 */
-	private Sound confirmation;
-	
-	
 	/**
 	 * When triggered logs user's input after checking for errors.
 	 */
@@ -110,11 +90,8 @@ public class LoggingModules {
 	    	  		allOkay = false;
 	    	  	}
 	    	  	if (allOkay) {
-	    	  		confirmation.play();
 	    	  		moduleLog.addModule(newMod);
 	    	  		addTable();
-	    	  		mapDisplay.updateMap(moduleLog, moduleLog.getSize());
-	    	  		//TODO Stop modules from being placed on top of each other.
 	    	  	} else {
 	    	  		Window.alert("Module not added. Check ID and Coordinates.");
 	    	  	}
@@ -158,15 +135,6 @@ public class LoggingModules {
 	      
 	      
 	    });
-	
-		//TODO remove deleted module from map
-		private Button deleteMod = new Button("Delete", new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		    	  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
-		    	  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
-		    	  addTable();
-		      }
-		});
 	/**
 	 * Constructor that builds the Logging Module Page UI.
 	 */
@@ -182,7 +150,6 @@ public class LoggingModules {
 		Label numOrientation = new Label("Module Orientation:");
 		Label xCoordLabel = new Label("Module X Coordinate:");
 		Label yCoordLabel = new Label("Module Y Coordinate:");
-		Label removeModLabel = new Label("Remove Module");
 		panel.add(numLabel);
 		panel.add(modNum);
 		panel.add(statusLabel);
@@ -194,14 +161,8 @@ public class LoggingModules {
 		panel.add(yCoordLabel);
 		panel.add(modYCoord);
 		panel.add(logMod);
-		soundControl.setPreferredSoundTypes(SoundType.WEB_AUDIO, SoundType.FLASH, SoundType.HTML5);
-		soundControl.setDefaultVolume(100);
-		confirmation = soundControl.createSound(Sound.MIME_TYPE_AUDIO_OGG_SPEEX, "sound/LogSave.ogg");
 		addTable();
 		panel.add(moduleTable);
-		panel.add(removeModLabel);
-		panel.add(deleteModId);
-		panel.add(deleteMod);
 		tableScroll.add(panel);
 		
 		//Retrieve Data From local storage and add it to the table
@@ -235,10 +196,9 @@ public class LoggingModules {
 		moduleTable.setText(0, 3, "Module Orientation");
 		moduleTable.setText(0, 4, "Module X Coordinate");
 		moduleTable.setText(0, 5, "Module Y Coordinate");
-		if(moduleLog != null){
 		int size = moduleLog.getSize();
 		if (moduleLog.getModule(0) != null) {
-			for (int index = 0; index < size; index++) {
+			for (int index = 1; index < size; index++) {
 				Module currentMod = moduleLog.getModule(index);
 				moduleTable.setText(index + 1, 0,
 						Integer.toString(currentMod.getId()));
@@ -254,7 +214,7 @@ public class LoggingModules {
 						Double.toString(currentMod.getYCoord()));
 			}
 		}
-		}
+		//panel.add(moduleTable);
 	}
 	
 	//Returns an initialized module based on the information from the key-value found in local storage, otherwise returns null
@@ -276,9 +236,5 @@ public class LoggingModules {
 	
 	public ModuleLog getModLog(){
 		return moduleLog;
-	}
-	
-	public void attachMap(ConfigUI map){
-		mapDisplay = map;
 	}
 }

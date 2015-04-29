@@ -1,6 +1,7 @@
 package florence.client;
 
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 /**
  * Class that is used for setting up module map UI.
@@ -31,7 +32,6 @@ public class ConfigUI {
 				if (current != null) {
 					try {
 						mapGrid.setWidget(x, y, current.imageLocate());
-						mapGrid.getCellFormatter().setVisible(x, y ,true);
 					} catch (NullPointerException ex) {
 						
 					}
@@ -39,35 +39,16 @@ public class ConfigUI {
 			}
 		}
 		mapGrid.setVisible(true);
-		
 	}
 	/**
-	 * This method updates the map to match the current
-	 * table values.
+	 * This method returns the Map grid.
+	 * @return returns the mapGrid
 	 */
-	public void updateMap(ModuleLog newLog, int newSize) {
-		Mapper theMap = new Mapper(newLog, newSize);
-		Module[][] extractor = theMap.getMap();
-		Module current;		
-		for (int x = 0; x < gridSize; x++) {
-			for (int y = 0; y < gridSize; y++) {
-				current = extractor[x][y];
-				if (current != null) {
-					try {
-						mapGrid.setWidget(x, y, current.imageLocate());
-					} catch (NullPointerException ex) {
-						
-					}
-				}
-			}
-		}
+	public final Grid makeConfig() {
+		return mapGrid;
 	}
-	/**
-	 * Method that creates a UI for the Map in a scroll
-	 * panel so that entire map can be viewed.
-	 * @return ScrollPanel the panel to be displayed to user
-	 */
-	public ScrollPanel makeMap() {
+	
+	public ScrollPanel makeMap(){
 		ScrollPanel newPanel = new ScrollPanel();
 		mapGrid.setVisible(true);
 		newPanel.add(mapGrid);
