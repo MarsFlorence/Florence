@@ -85,86 +85,100 @@ public class LoggingModules {
 	 * When triggered logs user's input after checking for errors.
 	 */
 	private Button logMod = new Button("Log Module", new ClickHandler() {
-	      public void onClick(ClickEvent event) {
-	    	  Module newMod = new Module();
-	    	  int currentID = Integer.parseInt(modNum.getValue());
-	    	  boolean allOkay = true;
-	    	  if (!moduleLog.containsModule(currentID)) {
-	    		Module checking = new Module();
-	    		if (checking.validIDcheck(currentID)) {
-	    			newMod.setId(currentID);
-		    	  	newMod.setStatus(modStatus.getValue(
-		    	  			modStatus.getSelectedIndex()));
-		    	  	newMod.setOrientation(Integer.parseInt(
-		    	  			modOrientation.getValue(
-		    	  					modOrientation.getSelectedIndex())));
-	    		} else {
-	    			allOkay = false;
-	    		}
-	    	  	double x = Double.parseDouble(modXCoord.getValue());
-	    	  	double y = Double.parseDouble(modYCoord.getValue());
-	    	  	if ((x < 99 && y < 99 && x > 0 && y > 0) && allOkay) {
-	    	  		newMod.setXCoord(x);
-	    	  		newMod.setYCoord(y);
-	    	  	} else {
-	    	  		allOkay = false;
-	    	  	}
-	    	  	if (allOkay) {
-	    	  		moduleLog.addModule(newMod);
-	    	  		addTable();
-	    	  		mapDisplay.updateMap(moduleLog, moduleLog.getSize());
-	    	  		//TODO Stop modules from being placed on top of each other.
-	    	  	} else {
-	    	  		Window.alert("Module not added. Check ID and Coordinates.");
-	    	  	}
-	    	  } else {
-	    		  Window.alert("This module has already been logged.");
-	    	  }
-	    	  
-	    	  //Clears all input data for next input.
-	    	  modNum.setValue("");
-	    	  modStatus.setSelectedIndex(0);
-	    	  modOrientation.setSelectedIndex(0);
-	    	  modXCoord.setValue("");
-	    	  modYCoord.setValue("");
-	    	 
-	    	  //Calls MinMaxConfigs functions here 
-	    	  //only if the module logged is not DAMAGED
-	    	  if (newMod.getStatus() == Status.UNDAMAGED 
-	    			  || newMod.getStatus() == Status.UNCERTAIN) {
-	    		  
-	    		  modConfigs.addModuleItem(newMod.getModType());
-		    	  if (modConfigs.checkMinCond()) {
-		    		/*This block will run when the minimum condition is met:
-		    		 * ALERT
-		    		 * Gives user the option to view two minimum habitat
-		    		 * configurations (possibly use HistoryExample Lab) 
-		    		*/
-		    		  Window.alert("ALERT :"
-		    		  		+ " Minimum configuration has been reached.");
-		    	  }
-		    	  else if (modConfigs.checkMaxCond()) {
-		    		/*This block will run when the maximum condition is met:
-		    		 * ALERT
-		    		 * 
-		    	    */
-		    		  Window.alert("ALERT :"
-			    		  		+ " Maximum configuration has been reached.");
-		    		
-		    	  }
-	    	  }
-	      }
-	      
+		public void onClick(ClickEvent event) {
+			if(!modNum.getText().isEmpty() && !modXCoord.getText().isEmpty() && !modYCoord.getText().isEmpty()){
+				Module newMod = new Module();
+				int currentID = Integer.parseInt(modNum.getValue());
+				boolean allOkay = true;
+				if (!moduleLog.containsModule(currentID)) {
+					Module checking = new Module();
+					if (checking.validIDcheck(currentID)) {
+						newMod.setId(currentID);
+						newMod.setStatus(modStatus.getValue(
+								modStatus.getSelectedIndex()));
+						newMod.setOrientation(Integer.parseInt(
+								modOrientation.getValue(
+										modOrientation.getSelectedIndex())));
+					} else {
+						allOkay = false;
+					}
+					double x = Double.parseDouble(modXCoord.getValue());
+					double y = Double.parseDouble(modYCoord.getValue());
+					if ((x < 99 && y < 99 && x > 0 && y > 0) && allOkay) {
+						newMod.setXCoord(x);
+						newMod.setYCoord(y);
+					} else {
+						allOkay = false;
+					}
+					if (allOkay) {
+						moduleLog.addModule(newMod);
+						addTable();
+						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+						//TODO Stop modules from being placed on top of each other.
+					} else {
+						Window.alert("Module not added. Check ID and Coordinates.");
+					}
+				} else {
+					Window.alert("This module has already been logged.");
+
+				}
+
+				//Clears all input data for next input.
+				modNum.setValue("");
+				modStatus.setSelectedIndex(0);
+				modOrientation.setSelectedIndex(0);
+				modXCoord.setValue("");
+				modYCoord.setValue("");
+
+				//Calls MinMaxConfigs functions here 
+				//only if the module logged is not DAMAGED
+				if (newMod.getStatus() == Status.UNDAMAGED 
+						|| newMod.getStatus() == Status.UNCERTAIN) {
+
+					modConfigs.addModuleItem(newMod.getModType());
+					if (modConfigs.checkMinCond()) {
+						/*This block will run when the minimum condition is met:
+						 * ALERT
+						 * Gives user the option to view two minimum habitat
+						 * configurations (possibly use HistoryExample Lab) 
+						 */
+						Window.alert("ALERT :"
+								+ " Minimum configuration has been reached.");
+					}
+					else if (modConfigs.checkMaxCond()) {
+						/*This block will run when the maximum condition is met:
+						 * ALERT
+						 * 
+						 */
+						Window.alert("ALERT :"
+								+ " Maximum configuration has been reached.");
+
+					}
+				}
+			}
+			else{
+				Window.alert("Please complete all fields");
+			}
+		}
 	      
 	    });
 	
 		//TODO remove deleted module from map
 		private Button deleteMod = new Button("Delete", new ClickHandler() {
 		      public void onClick(ClickEvent event) {
-		    	  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
-		    	  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
-		    	  addTable();
-		    	  confirmation.play();
+		    	  if(!deleteModId.getText().isEmpty() && moduleLog.containsModule(Integer.parseInt(deleteModId.getText()))){
+		    		  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
+		    		  //mapDisplay.removeFromMap(moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText())));
+		    		  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
+		    		  addTable();
+		    		  mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+		    		  deleteModId.setValue("");
+		    		  confirmation.play();
+		    	  }
+		    	  else{
+		    		  Window.alert("Please enter a valid module id");
+		    		  deleteModId.setValue("");
+		    	  }
 		      }
 		});
 	/**

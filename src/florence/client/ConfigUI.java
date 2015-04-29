@@ -15,6 +15,7 @@ public class ConfigUI {
 	 * Sets up an empty Grid for images to be displayed.
 	 */
 	private final Grid mapGrid = new Grid(gridSize, gridSize);
+	private Mapper theMap;
 	/**
 	 * This Constructs the UI with the given module log.
 	 * 
@@ -22,7 +23,7 @@ public class ConfigUI {
 	 * @param modCount the number of modules in the inputMods
 	 */
 	public ConfigUI(ModuleLog inputMods, int modCount) {
-		Mapper theMap = new Mapper(inputMods, modCount);
+		theMap = new Mapper(inputMods, modCount);
 		Module[][] extractor = theMap.getMap();
 		Module current;		
 		for (int x = 0; x < gridSize; x++) {
@@ -46,7 +47,7 @@ public class ConfigUI {
 	 * table values.
 	 */
 	public void updateMap(ModuleLog newLog, int newSize) {
-		Mapper theMap = new Mapper(newLog, newSize);
+		theMap = new Mapper(newLog, newSize);
 		Module[][] extractor = theMap.getMap();
 		Module current;		
 		for (int x = 0; x < gridSize; x++) {
@@ -73,5 +74,10 @@ public class ConfigUI {
 		newPanel.add(mapGrid);
 		newPanel.setVisible(true);
 		return newPanel;
+	}
+	
+	public void removeFromMap(Module mod){
+		@SuppressWarnings("unused")
+		boolean trashValue = theMap.removeModule(mod);
 	}
 }
