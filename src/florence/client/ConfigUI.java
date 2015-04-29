@@ -60,6 +60,9 @@ public class ConfigUI {
 						
 					}
 				}
+				else{
+					mapGrid.setText(x, y, "");
+				}
 			}
 		}
 	}
@@ -77,7 +80,6 @@ public class ConfigUI {
 	}
 	
 	public void removeFromMap(Module mod){
-		@SuppressWarnings("unused")
-		boolean trashValue = theMap.removeModule(mod);
+		theMap.removeModule(mod);
 	}
 }

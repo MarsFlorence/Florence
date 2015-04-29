@@ -168,7 +168,7 @@ public class LoggingModules {
 		      public void onClick(ClickEvent event) {
 		    	  if(!deleteModId.getText().isEmpty() && moduleLog.containsModule(Integer.parseInt(deleteModId.getText()))){
 		    		  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
-		    		  //mapDisplay.removeFromMap(moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText())));
+		    		  mapDisplay.removeFromMap(moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText())));
 		    		  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
 		    		  addTable();
 		    		  mapDisplay.updateMap(moduleLog, moduleLog.getSize());
