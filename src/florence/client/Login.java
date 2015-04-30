@@ -17,13 +17,10 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import florence.weather.JSONsubvertSOP;
-
 /**
  * Class that creates login tab and creates new tabs after
  * user name and password are entered correctly.
  */
-
 public class Login {
 	/**
 	 * Input box for user name.
@@ -60,7 +57,7 @@ public class Login {
 	 */
 	public Login(final TabLayoutPanel tabPanel) {	   
 		Label welcomeMessage = new Label(
-				"Welcome to the Mars Habitat Control System.");
+				"Welcome to the Mars Habitat Configuration System.");
 		welcomeMessage.addStyleName("gwt-Label-Header");
 		welcomeMessage.setStylePrimaryName("gwt-Label-Header");
 		pan.add(welcomeMessage);
@@ -99,6 +96,11 @@ public class Login {
 		    	  if (input.getValue().equals(userName) 
 		    			  && secret.getValue().equals(password)) {
 		    		  
+		    		  setOldDate();
+		    		  if(outdated()){
+		    			  Window.alert("10 days have elapsed since the milometer device has been calibrated.");
+		    		  }
+		    		  
 		    		  //This code MUST stay in this onclick handler.
 		    		  //It is required so that the tabs aren't
 		    		  //created until the user logs in.
@@ -106,17 +108,15 @@ public class Login {
 		    		  //changing this code - Jake
 		    		  LoggingModules theLog = new LoggingModules();
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
-
-		    		  JSONsubvertSOP weather = new JSONsubvertSOP();
+		    		  theLog.attachMap(map);
+		    		  
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
 		    		    tabPanel.add(new HTML("Configuration"),
 		    		    		"Configuration");
 		    		    tabPanel.add(map.makeMap(),
-		    		    		"Optimal Routing");
-		    		    tabPanel.add(weather.getVP(),
-		    		    		"Weather");	
+		    		    		"Optimal Routing");	    		  
 		    		  if (tabPanel.getTabWidget(1) != null) {
 		    			  tabPanel.selectTab(1);
 		    		  } else {
@@ -160,17 +160,21 @@ public class Login {
 	/**
 	 * Method that sets the new Old date.
 	 */
+	@SuppressWarnings("deprecation")
 	public void setOldDate() {
-		oldDate = new Date(2015, 4, 8);
+		oldDate = new Date(0000, 0, 0, 0, 0, 0);
 	}
 	/**
 	 * Method that determines if calibration should be performed.
 	 * @return true calibration needed, false no action required
 	 */
 	public boolean outdated() {
-		long dateDifference = today().getTime() - oldDate.getTime();
-		if (dateDifference / (1000 * 60 * 60 * 24) > 10) {
+		long dateDifference = new Date().getTime() - oldDate.getTime();
+		double days = dateDifference / (1000 * 60 * 60 * 24);
+		if (days > 10) {
 			return true;
 		}
 		return false;
-	}}
+	}
+	
+}

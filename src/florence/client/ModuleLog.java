@@ -1,7 +1,6 @@
 package florence.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.google.gwt.storage.client.Storage;
 /**
@@ -13,7 +12,6 @@ public class ModuleLog {
 	 */
 	public ModuleLog() {
 		moduleLog = new ArrayList<Module>();
-		moduleLog.add(new Module(0, Status.DAMAGED, 0, 0.0, 0.0));
 	}
 	/**
 	 * Method that adds module to moduleLog array.
@@ -24,11 +22,30 @@ public class ModuleLog {
 		moduleLog.add(mod);
 	}
 	/**
+	 * Method that returns the index corresponding to the module id
+	 * @param modId
+	 * @return index
+	 */
+	public int getIndex(int modId){
+		int index = -1;
+		for(int i = 0; i < moduleLog.size(); i++){
+			if(moduleLog.get(i).getId() == modId){
+				index = i;
+			}
+		}
+		return index;
+	}
+	/**
 	 * Method that removes module from array at given index.
 	 * @param index the location of module to be removed
 	 */
 	public void removeModule(int index) {
 		moduleLog.remove(index);
+	}
+	
+	public void deleteAndRemoveModule(int modId, Storage store){
+		removeModule(getIndex(modId));
+		deleteFromLocalStorage(modId, store);
 	}
 	/**
 	 * Method used to get Module at given index.
@@ -89,6 +106,10 @@ public class ModuleLog {
   					+ "," + newMod.getOrientation() + "," + newMod.getXCoord() + "," + newMod.getYCoord();
   			moduleStore.setItem(String.valueOf(newMod.getId()), moduleInfo);
   		}			
+	}
+	
+	private void deleteFromLocalStorage(int modId, Storage store){
+		store.removeItem(String.valueOf(modId));
 	}
 
 	/**
