@@ -23,7 +23,7 @@ public class LoggingModules {
 	private ConfigUI mapDisplay = null;
 	
 	/**
-	 * The moduleStore object to save to html5
+	 * The moduleStore object to save to html5.
 	 */
 	private Storage moduleStore = null;
 	/**
@@ -63,7 +63,7 @@ public class LoggingModules {
 	 */
 	private FlexTable moduleTable = new FlexTable();
 	/**
-	 * Field for deleting modules
+	 * Field for deleting modules.
 	 */
 	private TextBox deleteModId = new TextBox();
 	/**
@@ -76,7 +76,7 @@ public class LoggingModules {
 	private SoundController soundControl = new SoundController();
 	
 	/**
-	 * 
+	 * Hold the "Module Logged" confirmation message.
 	 */
 	private Sound confirmation;
 	
@@ -111,6 +111,11 @@ public class LoggingModules {
 						allOkay = false;
 					}
 					if (allOkay) {
+						if (confirmation != null) {
+	    	  				confirmation.play();
+	    	  			} else {
+	    	  				System.out.println("Sound is Null");
+	    	  			}
 						moduleLog.addModule(newMod);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
@@ -164,6 +169,9 @@ public class LoggingModules {
 	    });
 	
 		//TODO remove deleted module from map
+		/**
+		 * This button deletes a module from the table and map.
+		 */
 		private Button deleteMod = new Button("Delete", new ClickHandler() {
 		      public void onClick(ClickEvent event) {
 		    	  if(!deleteModId.getText().isEmpty() && moduleLog.containsModule(Integer.parseInt(deleteModId.getText()))){
@@ -272,7 +280,7 @@ public class LoggingModules {
 	}
 	
 	//Returns an initialized module based on the information from the key-value found in local storage, otherwise returns null
-	private Module loadFromLocalStorage(String moduleInfo){
+	private Module loadFromLocalStorage(String moduleInfo) {
 		Module returnModule = new Module();
 		String[] elephantList = moduleInfo.split(",");
 		String id = elephantList[0];
@@ -287,12 +295,18 @@ public class LoggingModules {
 		returnModule.setYCoord(Double.valueOf(y));
 		return returnModule;
 	}
-	
-	public ModuleLog getModLog(){
+	/**
+	 * Method that is used to get moudleLog from LoggingModules class
+	 * @return ModuleLog returns the current moduleLog object
+	 */
+	public ModuleLog getModLog() {
 		return moduleLog;
 	}
-	
-	public void attachMap(ConfigUI map){
+	/**
+	 * Method that takes a ConfigUI object to set mapDisplay.
+	 * @param map the desired map to be displayed
+	 */
+	public void attachMap(ConfigUI map) {
 		mapDisplay = map;
 	}
 }
