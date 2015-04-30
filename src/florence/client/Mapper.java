@@ -80,17 +80,10 @@ public class Mapper {
 	 * @param removeMod the module the user wishes to remove
 	 * @return true if removed, false if not removed
 	 */
-	public final boolean removeModule(Module removeMod) {
-		boolean done = false;
-		//If location == "" then module was not found
-		String location = findModule(removeMod);
-		if (location != "") {
-			int xcoor = Integer.parseInt(location, location.indexOf(' '));
-			int ycoor = Integer.parseInt(location, location.indexOf(' '));
-			moduleMap[xcoor][ycoor] = null;
-			done = true;
-		}
-		return done;
+	public void removeModule(Module removeMod) {
+		int xCoord = (int) removeMod.getXCoord();
+		int yCoord = (int) removeMod.getYCoord();
+		moduleMap[xCoord][yCoord] = null;
 	}
 	/**
 	 * getMap() returns the current module map.
