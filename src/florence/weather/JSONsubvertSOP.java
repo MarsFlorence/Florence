@@ -1,4 +1,4 @@
-package Weather;
+package florence.weather;
 
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
@@ -15,13 +15,18 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class JSONsubvertSOP {
+	
+	public JSONsubvertSOP() {
+		onModuleLoad();
+	}
+	
 	public void onModuleLoad() {
 		String proxy = "http://www.d.umn.edu/~and02586/Weather.php?url=";
 		String url =
 		proxy+"http://api.wunderground.com/api/f9c8dc6c804056c7/conditions/q/55805.json";
 		url = URL.encode(url);
 		// Send request to server and catch any errors.
-		Window.alert("url" +url);
+		
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 		try {
 		  Request request = builder.sendRequest(null, new RequestCallback() {
@@ -43,7 +48,7 @@ public class JSONsubvertSOP {
 		Window.alert("RequestException: Couldn't retrieve JSON");
 	}	
 		public void update(String rt) {
-			VerticalPanel vp = new VerticalPanel();
+			//VerticalPanel vp = new VerticalPanel();
 			//vp.add(new Label(rt)); //TO VIEW
 			
 			String sAll = rt;
@@ -63,6 +68,16 @@ public class JSONsubvertSOP {
 			vp.add(new Label(sVisibility)); //TO VIEW
 
 		    RootLayoutPanel.get().add(vp);
+		}
+		
+		private VerticalPanel vp = new VerticalPanel();
+		
+		public VerticalPanel getVP() {
+			return vp;
+		}
+		
+		public void runW() {
+			onModuleLoad();
 		}
 		
 	

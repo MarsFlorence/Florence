@@ -17,6 +17,8 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import florence.weather.JSONsubvertSOP;
+
 /**
  * Class that creates login tab and creates new tabs after
  * user name and password are entered correctly.
@@ -104,6 +106,8 @@ public class Login {
 		    		  //changing this code - Jake
 		    		  LoggingModules theLog = new LoggingModules();
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
+
+		    		  JSONsubvertSOP weather = new JSONsubvertSOP();
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
@@ -111,7 +115,7 @@ public class Login {
 		    		    		"Configuration");
 		    		    tabPanel.add(map.makeMap(),
 		    		    		"Optimal Routing");
-		    		    tabPanel.add(map.makeMap(),
+		    		    tabPanel.add(weather.getVP(),
 		    		    		"Weather");	
 		    		  if (tabPanel.getTabWidget(1) != null) {
 		    			  tabPanel.selectTab(1);
