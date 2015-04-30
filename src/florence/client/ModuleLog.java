@@ -60,6 +60,9 @@ public class ModuleLog {
 			return null;
 		}
 	}
+	public Module getModuleFromId(int modId){
+		return getModule(getIndex(modId));
+	}
 	/**
 	 * Method used to get current moduleLog.
 	 * @return ArrayList<Module> the array of modules
