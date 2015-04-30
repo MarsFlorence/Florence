@@ -28,15 +28,21 @@ public class Mapper {
 	 * @param modCount the number of modules in log
 	 */
 	public Mapper(ModuleLog modules, int modCount) {
+		int moduleX;
+		int moduleY;
 		for (int x = 0; x < dimensions; x++) {
 			for (int y = 0; y < dimensions; y++) {
 				moduleMap[x][y] = null;
 			}
 		}
 		//TODO Implement module storage with array.
-		for(Module mod: modules.getModuleLog()){
-			moduleMap[(int) mod.getXCoord()][(int) mod.getYCoord()] = mod;
-		}
+		int select = 0;
+		do {
+			moduleX = (int) modules.getModule(select).getXCoord();
+			moduleY = (int) modules.getModule(select).getYCoord();
+			moduleMap[moduleX][moduleY] = modules.getModule(select);
+			select++;
+		} while (select < modCount);
 			
 	}
 	/**
