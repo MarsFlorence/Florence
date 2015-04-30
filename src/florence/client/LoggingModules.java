@@ -181,7 +181,6 @@ public class LoggingModules {
 		    		  addTable();
 		    		  mapDisplay.updateMap(moduleLog, moduleLog.getSize());
 		    		  deleteModId.setValue("");
-		    		  confirmation.play();
 		    	  }
 		    	  else{
 		    		  Window.alert("Please enter a valid module id");
