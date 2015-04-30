@@ -1,4 +1,4 @@
-package Weather;
+package florence.weather;
 
 
 import com.google.gwt.http.client.Request;
