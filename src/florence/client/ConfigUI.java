@@ -30,9 +30,10 @@ public class ConfigUI {
 			for (int y = 0; y < gridSize; y++) {
 				current = extractor[x][y];
 				if (current != null) {
+					int adjustment = gridSize - y;
 					try {
-						mapGrid.setWidget(x, y, current.imageLocate());
-						mapGrid.getCellFormatter().setVisible(x, y ,true);
+						mapGrid.setWidget(adjustment, x, current.imageLocate());
+						mapGrid.getCellFormatter().setVisible(adjustment, x, true);
 					} catch (NullPointerException ex) {
 						
 					}
