@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import florence.weather.JSONsubvertSOP;
 
 /**
  * Class that creates login tab and creates new tabs after
@@ -111,12 +112,16 @@ public class Login {
 		    		  theLog.attachMap(map);
 		    		  
 		    		  
+		    		  JSONsubvertSOP weather = new JSONsubvertSOP();
+		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
 		    		    tabPanel.add(new HTML("Configuration"),
 		    		    		"Configuration");
 		    		    tabPanel.add(map.makeMap(),
-		    		    		"Optimal Routing");	    		  
+		    		    		"Optimal Routing");
+		    		    tabPanel.add(weather.getVP(),
+		    		    		"Weather");	  
 		    		  if (tabPanel.getTabWidget(1) != null) {
 		    			  tabPanel.selectTab(1);
 		    		  } else {
