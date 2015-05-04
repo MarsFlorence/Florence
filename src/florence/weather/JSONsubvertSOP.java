@@ -66,8 +66,8 @@ public class JSONsubvertSOP {
 			String sTemp = temp.toString();
 			String sVisibility = visibility.toString();
 			
-			vp.add(new Label("temp")); //TO VIEW
-			vp.add(new Label("bamp")); //TO VIEW
+			vp.add(new Label("Visibility: " + sVisibility)); //TO VIEW
+			vp.add(new Label("Temperature: " + sTemp)); //TO VIEW
 
 			DockPanel dock = new DockPanel();
 			dock.add(new Image("images/wundergroundLogo_4c_horz.jpg"),DockPanel.WEST);
