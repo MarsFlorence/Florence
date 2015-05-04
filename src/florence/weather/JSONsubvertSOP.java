@@ -10,6 +10,8 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -64,9 +66,12 @@ public class JSONsubvertSOP {
 			String sTemp = temp.toString();
 			String sVisibility = visibility.toString();
 			
-			vp.add(new Label(sTemp)); //TO VIEW
-			vp.add(new Label(sVisibility)); //TO VIEW
+			vp.add(new Label("temp")); //TO VIEW
+			vp.add(new Label("bamp")); //TO VIEW
 
+			DockPanel dock = new DockPanel();
+			dock.add(new Image("images/wundergroundLogo_4c_horz.jpg"),DockPanel.WEST);
+			vp.add(dock);
 		    RootLayoutPanel.get().add(vp);
 		}
 		

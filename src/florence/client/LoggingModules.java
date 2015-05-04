@@ -90,7 +90,7 @@ public class LoggingModules {
 				Module newMod = new Module();
 				int currentID = Integer.parseInt(modNum.getValue());
 				boolean allOkay = true;
-				if (!moduleLog.containsModule(currentID)) {
+				if (!moduleLog.containsModuleId(currentID)) {
 					Module checking = new Module();
 					if (checking.validIDcheck(currentID)) {
 						newMod.setId(currentID);

@@ -81,23 +81,15 @@ public class ModuleLog {
 	 * @param find the ID user is looking for in array
 	 * @return true if ID is in array, false if not in array
 	 */
-	public boolean containsModule(int find) {
-		boolean found = false;
-		int counter = 0;
-		do {
-			try {
-				if (this.getModule(counter).getId() == find) {
-					found = true;
-				}
-			} catch (NullPointerException exp) {
-				found = false;
-				//TODO Add some way to handle exception.
+	public boolean containsModule(int id) {
+		for (Module mod : moduleLog) {
+			if (id == mod.getId()) {
+				return true;
 			}
-			counter++;
-		} while (counter < this.getSize() && found == false);
-		return found;
+		}
+		return false;
 	}
-	
+
 	private void saveToLocalStorage(Module newMod){
   		moduleStore = Storage.getLocalStorageIfSupported();
   		if (moduleStore != null) {
