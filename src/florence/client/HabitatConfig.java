@@ -61,6 +61,37 @@ public class HabitatConfig {
 			}
 		}
 	}
+	
+	private void addModule(Module mod, int x, int y){
+		habitatConfig[x][y] = mod;
+	}
+	
+	private Module getModuleAtCoordinates(int x, int y){
+		return habitatConfig[x][y];
+	}
+	
+	private int getXCoordinate(Module mod){
+		for(int y=0; y < 100; y++){
+			for(int x=0; x < 100; x++){
+				if(habitatConfig[x][y] == mod){
+					return x;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	private int getYCoordinate(Module mod){
+		for(int y=0; y < 100; y++){
+			for(int x=0; x < 100; x++){
+				if(habitatConfig[x][y] == mod){
+					return y;
+				}
+			}
+		}
+		return -1;
+	}
+	
 	public Module[][] getHabitatConfig() {
 		return habitatConfig;
 	}
