@@ -27,7 +27,7 @@ public class HabitatDisplay {
 				if (current != null) {
 					int adjustment = gridSize - y;
 					try {
-						configGrid.setWidget(adjustment, x, current.imageLocate());
+						configGrid.setWidget(adjustment, x - 1, current.imageLocate());
 						configGrid.getCellFormatter().setVisible(adjustment, x - 1, true);
 					} catch (NullPointerException ex) {
 						
@@ -39,6 +39,24 @@ public class HabitatDisplay {
 
 		configGrid.setVisible(true);
 		RootPanel.get().add(configGrid);
+	}
+	
+	public void updateHabitat(HabitatConfig config) {
+		Module current;		
+		for (int x = 0; x < gridSize; x++) {
+			for (int y = 0; y < gridSize; y++) {
+				current = config.getModuleAtCoordinates(x, y);
+				if (current != null) {
+					int adjustment = gridSize - y;
+					try {
+						configGrid.setWidget(adjustment, x - 1, current.imageLocate());
+						configGrid.getCellFormatter().setVisible(adjustment, x - 1, true);
+					} catch (NullPointerException ex) {
+						
+					}
+				}
+			}
+		}
 	}
 	
 	public ScrollPanel makeConfig() {

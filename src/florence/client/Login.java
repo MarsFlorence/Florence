@@ -115,6 +115,7 @@ public class Login {
 		    		  theLog.attachMap(map);
 		    		  
 		    		  HabitatDisplay habitat = new HabitatDisplay(new HabitatConfig(theLog.getModLog()));
+		    		  theLog.attachHabitat(habitat);
 		    		  
 		    		  JSONsubvertSOP weather = new JSONsubvertSOP();
 		    		  

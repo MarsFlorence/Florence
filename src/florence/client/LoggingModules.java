@@ -22,6 +22,8 @@ public class LoggingModules {
 	
 	private ConfigUI mapDisplay = null;
 	
+	private HabitatDisplay habitatDisplay = null;
+	
 	/**
 	 * The moduleStore object to save to html5.
 	 */
@@ -119,6 +121,10 @@ public class LoggingModules {
 						moduleLog.addModule(newMod);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+						HabitatConfig habitat = new HabitatConfig(moduleLog);
+						habitat.createConfig();
+						habitatDisplay.updateHabitat(habitat);
+						
 						//TODO Stop modules from being placed on top of each other.
 					} else {
 						Window.alert("Module not added. Check ID and Coordinates.");
@@ -307,5 +313,10 @@ public class LoggingModules {
 	 */
 	public void attachMap(ConfigUI map) {
 		mapDisplay = map;
+	}
+	
+	public void attachHabitat(HabitatDisplay habitat) {
+		habitatDisplay = habitat;
+		
 	}
 }

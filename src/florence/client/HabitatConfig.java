@@ -7,16 +7,16 @@ public class HabitatConfig {
 	private ModuleLog moduleLog;
 	private Module[][] habitatConfig;
 
-	public ArrayList<Module> plainModules;
-	public ArrayList<Module> dormitoryModules;
-	public ArrayList<Module> sanitationModules;
-	public ArrayList<Module> controlModules;
-	public ArrayList<Module> foodAndWaterModules;
-	public ArrayList<Module> gymAndRelaxationModules;
-	public ArrayList<Module> canteenModules;
-	public ArrayList<Module> powerModules;
-	public ArrayList<Module> airlockModules;
-	public ArrayList<Module> medicalModules;
+	private ArrayList<Module> plainModules;
+	private ArrayList<Module> dormitoryModules;
+	private ArrayList<Module> sanitationModules;
+	private ArrayList<Module> controlModules;
+	private ArrayList<Module> foodAndWaterModules;
+	private ArrayList<Module> gymAndRelaxationModules;
+	private ArrayList<Module> canteenModules;
+	private ArrayList<Module> powerModules;
+	private ArrayList<Module> airlockModules;
+	private ArrayList<Module> medicalModules;
 	
 	
 	
@@ -28,12 +28,23 @@ public class HabitatConfig {
 	}
 	
 	public void createConfig(){
+		setTypeArrays();
 		if(isMinimumConfig()){
 			setMinimimumConfig();
 		}
 	}
 	
-	private void setTypeArrays(){
+	public void setTypeArrays(){
+		plainModules = new ArrayList<Module>();
+		dormitoryModules = new ArrayList<Module>();
+		sanitationModules = new ArrayList<Module>();
+		controlModules = new ArrayList<Module>();
+		foodAndWaterModules = new ArrayList<Module>();
+		gymAndRelaxationModules = new ArrayList<Module>();
+		canteenModules = new ArrayList<Module>();
+		powerModules = new ArrayList<Module>();
+		airlockModules = new ArrayList<Module>();
+		medicalModules = new ArrayList<Module>();
 		for(Module mod: moduleLog.getModuleLog()){
 			if(mod.getModType() == Type.PLAIN){
 				plainModules.add(mod);
