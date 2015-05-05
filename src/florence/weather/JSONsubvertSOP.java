@@ -44,8 +44,9 @@ public class JSONsubvertSOP {
 		    }
 		  });
 		} catch (RequestException e) {
+			Window.alert("RequestException: Couldn't retrieve JSON");
 		}
-		Window.alert("RequestException: Couldn't retrieve JSON");
+		
 	}	
 		public void update(String rt) {
 			//VerticalPanel vp = new VerticalPanel();
@@ -58,13 +59,19 @@ public class JSONsubvertSOP {
 			//String sTry = jTry.toString();
 			
 			JSONObject jB = (JSONObject)JSONParser.parseLenient(jTry.toString());
-			JSONValue temp = jB.get("temp_c");
+			JSONValue tempf = jB.get("temp_f");
+			JSONValue tempc = jB.get("temp_c");
+			JSONValue weather = jB.get("weather");
 			JSONValue visibility = jB.get("visibility_km");
 			
-			String sTemp = temp.toString();
+			String sTemp1 = tempf.toString();
+			String sTemp2 = tempc.toString();
+			String sWeather = weather.toString();
 			String sVisibility = visibility.toString();
 			
-			vp.add(new Label(sTemp)); //TO VIEW
+			vp.add(new Label(sTemp1)); //TO VIEW
+			vp.add(new Label(sTemp2)); //TO VIEW
+			vp.add(new Label(sWeather)); //TO VIEW
 			vp.add(new Label(sVisibility)); //TO VIEW
 
 		    RootLayoutPanel.get().add(vp);
