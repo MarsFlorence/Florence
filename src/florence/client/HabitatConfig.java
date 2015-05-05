@@ -117,7 +117,7 @@ public class HabitatConfig {
 		foodAndWaterModules.remove(0);
 	}
 	
-	private Module getModuleAtCoordinates(int x, int y){
+	public Module getModuleAtCoordinates(int x, int y){
 		return habitatConfig[x][y];
 	}
 	
