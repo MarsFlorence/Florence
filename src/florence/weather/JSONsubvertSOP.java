@@ -46,8 +46,9 @@ public class JSONsubvertSOP {
 		    }
 		  });
 		} catch (RequestException e) {
+			Window.alert("RequestException: Couldn't retrieve JSON");
 		}
-		Window.alert("RequestException: Couldn't retrieve JSON");
+		
 	}	
 		public void update(String rt) {
 			//VerticalPanel vp = new VerticalPanel();
@@ -60,14 +61,28 @@ public class JSONsubvertSOP {
 			//String sTry = jTry.toString();
 			
 			JSONObject jB = (JSONObject)JSONParser.parseLenient(jTry.toString());
-			JSONValue temp = jB.get("temp_c");
+			JSONValue temp = jB.get("temperature_string");
+			JSONValue location = jB.get("full");
+			JSONValue weather = jB.get("weather");
 			JSONValue visibility = jB.get("visibility_km");
 			
 			String sTemp = temp.toString();
+			String sLocation = location.toString();
+			String sWeather = weather.toString();
 			String sVisibility = visibility.toString();
 			
-			vp.add(new Label("Visibility: " + sVisibility)); //TO VIEW
+
+			vp.add(new Label(sTemp)); //TO VIEW
+			vp.add(new Label(sLocation)); //TO VIEW
+			vp.add(new Label(sWeather)); //TO VIEW
+			vp.add(new Label(sVisibility)); //TO VIEW
+
+			vp.add(new Label(sLocation)); //TO VIEW
+			vp.add(new Label("Conditions: " + sWeather)); //TO VIEW
 			vp.add(new Label("Temperature: " + sTemp)); //TO VIEW
+			vp.add(new Label("Visibility: " + sVisibility)); //TO VIEW
+			
+
 
 			DockPanel dock = new DockPanel();
 			dock.add(new Image("images/wundergroundLogo_4c_horz.jpg"),DockPanel.WEST);
