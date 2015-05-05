@@ -111,12 +111,13 @@ public class Login {
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
 		    		  theLog.attachMap(map);
 		    		  
+		    		  HabitatDisplay habitat = new HabitatDisplay(new HabitatConfig(theLog.getModLog()));
 		    		  
 		    		  JSONsubvertSOP weather = new JSONsubvertSOP();
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
-		    		    tabPanel.add(new HTML("Configuration"),
+		    		    tabPanel.add(habitat.makeConfig(),
 		    		    		"Configuration");
 		    		    tabPanel.add(map.makeMap(),
 		    		    		"Optimal Routing");
