@@ -10,6 +10,28 @@ h1 {
   text-align: center;
 }
 
+.mapGrid {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border-style: solid;
+  border-color: black;
+  background: url("images/Surface.jpg");
+  background-repeat: repeat; 
+  background-position: 0px 0px;    
+}
+
+.tableCell-all {
+  height: 45px;
+  min-height: 45px;
+  min-width: 45px;
+  width: 650px;
+  border-style: solid;
+  border-color: black;
+  border-size: 2px
+  
+}
+
 .gwt-Label-Header {
   font-size: 3em;
   font-weight: bold;
