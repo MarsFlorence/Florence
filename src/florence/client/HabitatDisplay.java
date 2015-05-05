@@ -28,7 +28,7 @@ public class HabitatDisplay {
 					int adjustment = gridSize - y;
 					try {
 						configGrid.setWidget(adjustment, x, current.imageLocate());
-						configGrid.getCellFormatter().setVisible(adjustment, x, true);
+						configGrid.getCellFormatter().setVisible(adjustment, x - 1, true);
 					} catch (NullPointerException ex) {
 						
 					}
