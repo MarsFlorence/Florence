@@ -10,6 +10,8 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -69,11 +71,19 @@ public class JSONsubvertSOP {
 			String sWeather = weather.toString();
 			String sVisibility = visibility.toString();
 			
+
 			vp.add(new Label(sTemp1)); //TO VIEW
 			vp.add(new Label(sTemp2)); //TO VIEW
 			vp.add(new Label(sWeather)); //TO VIEW
 			vp.add(new Label(sVisibility)); //TO VIEW
 
+			vp.add(new Label("Visibility: " + sVisibility)); //TO VIEW
+			vp.add(new Label("Temperature: " + sTemp1)); //TO VIEW
+
+
+			DockPanel dock = new DockPanel();
+			dock.add(new Image("images/wundergroundLogo_4c_horz.jpg"),DockPanel.WEST);
+			vp.add(dock);
 		    RootLayoutPanel.get().add(vp);
 		}
 		
