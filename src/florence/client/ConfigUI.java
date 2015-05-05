@@ -1,6 +1,7 @@
 package florence.client;
 
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 /**
  * Class that is used for setting up module map UI.
@@ -25,7 +26,17 @@ public class ConfigUI {
 	public ConfigUI(ModuleLog inputMods, int modCount) {
 		theMap = new Mapper(inputMods, modCount);
 		Module[][] extractor = theMap.getMap();
-		Module current;		
+		Module current;
+		
+		//mapGrid.setStyleName("mapGrid");
+		mapGrid.addStyleName("mapGrid");
+		
+		for (int i = 0; i < mapGrid.getRowCount(); i++) {
+            for (int j = 0; j < mapGrid.getCellCount(i); j++) {
+                   mapGrid.getCellFormatter().setStyleName(i, j, "tableCell-all");
+            }
+        }
+		
 		for (int x = 0; x < gridSize; x++) {
 			for (int y = 0; y < gridSize; y++) {
 				current = extractor[x][y];
@@ -41,7 +52,7 @@ public class ConfigUI {
 			}
 		}
 		mapGrid.setVisible(true);
-		
+		RootPanel.get().add(mapGrid);
 	}
 	/**
 	 * This method updates the map to match the current
@@ -56,7 +67,8 @@ public class ConfigUI {
 				current = extractor[x][y];
 				if (current != null) {
 					try {
-						mapGrid.setWidget(x, y, current.imageLocate());
+						int adjustment = gridSize - y;
+						mapGrid.setWidget(adjustment, x, current.imageLocate());
 					} catch (NullPointerException ex) {
 						
 					}
