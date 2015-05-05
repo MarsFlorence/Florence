@@ -23,6 +23,8 @@ h1 {
 
 .tableCell-all {
   height: 45px;
+  min-height: 45px;
+  min-width: 45px;
   width: 650px;
   border-style: solid;
   border-color: black;
