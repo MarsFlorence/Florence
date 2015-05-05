@@ -66,6 +66,57 @@ public class HabitatConfig {
 		habitatConfig[x][y] = mod;
 	}
 	
+	private boolean isMinimumConfig(){
+		if(plainModules.size() < 3){
+			return false;
+		}
+		else if(airlockModules.size() < 1){
+			return false;
+		}
+		else if(controlModules.size() < 1){
+			return false;
+		}
+		else if(powerModules.size() < 1){
+			return false;
+		}
+		else if(foodAndWaterModules.size() < 1){
+			return false;
+		}
+		else if(dormitoryModules.size() < 1){
+			return false;
+		}
+		else if(canteenModules.size() < 1){
+			return false;
+		}
+		else if(sanitationModules.size() < 1){
+			return false;
+		}
+		return true;
+	}
+	
+	private void setMinimimumConfig(){
+		addModule(dormitoryModules.get(0), 50, 50);
+		dormitoryModules.remove(0);
+		addModule(plainModules.get(0), 51, 50);
+		plainModules.remove(0);
+		addModule(plainModules.get(0), 52, 50);
+		plainModules.remove(0);
+		addModule(plainModules.get(0), 53, 50);
+		plainModules.remove(0);
+		addModule(airlockModules.get(0), 54, 50);
+		airlockModules.remove(0);
+		addModule(sanitationModules.get(0), 51, 49);
+		sanitationModules.remove(0);
+		addModule(powerModules.get(0), 52, 49);
+		powerModules.remove(0);
+		addModule(controlModules.get(0), 53, 49);
+		controlModules.remove(0);
+		addModule(canteenModules.get(0), 52, 51);
+		canteenModules.remove(0);
+		addModule(foodAndWaterModules.get(0), 53, 51);
+		foodAndWaterModules.remove(0);
+	}
+	
 	private Module getModuleAtCoordinates(int x, int y){
 		return habitatConfig[x][y];
 	}
