@@ -61,24 +61,27 @@ public class JSONsubvertSOP {
 			//String sTry = jTry.toString();
 			
 			JSONObject jB = (JSONObject)JSONParser.parseLenient(jTry.toString());
-			JSONValue tempf = jB.get("temp_f");
-			JSONValue tempc = jB.get("temp_c");
+			JSONValue temp = jB.get("temperature_string");
+			JSONValue location = jB.get("full");
 			JSONValue weather = jB.get("weather");
 			JSONValue visibility = jB.get("visibility_km");
 			
-			String sTemp1 = tempf.toString();
-			String sTemp2 = tempc.toString();
+			String sTemp = temp.toString();
+			String sLocation = location.toString();
 			String sWeather = weather.toString();
 			String sVisibility = visibility.toString();
 			
 
-			vp.add(new Label(sTemp1)); //TO VIEW
-			vp.add(new Label(sTemp2)); //TO VIEW
+			vp.add(new Label(sTemp)); //TO VIEW
+			vp.add(new Label(sLocation)); //TO VIEW
 			vp.add(new Label(sWeather)); //TO VIEW
 			vp.add(new Label(sVisibility)); //TO VIEW
 
+			vp.add(new Label(sLocation)); //TO VIEW
+			vp.add(new Label("Conditions: " + sWeather)); //TO VIEW
+			vp.add(new Label("Temperature: " + sTemp)); //TO VIEW
 			vp.add(new Label("Visibility: " + sVisibility)); //TO VIEW
-			vp.add(new Label("Temperature: " + sTemp1)); //TO VIEW
+			
 
 
 			DockPanel dock = new DockPanel();
