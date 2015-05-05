@@ -104,7 +104,7 @@ public class LoggingModules {
 					}
 					double x = Double.parseDouble(modXCoord.getValue());
 					double y = Double.parseDouble(modYCoord.getValue());
-					if ((x < 99 && y < 99 && x > 0 && y > 0) && allOkay) {
+					if ((x < 100 && y < 100 && x > 0 && y > 0) && allOkay) {
 						newMod.setXCoord(x);
 						newMod.setYCoord(y);
 					} else {
