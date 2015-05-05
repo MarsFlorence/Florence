@@ -56,7 +56,8 @@ public class ConfigUI {
 				current = extractor[x][y];
 				if (current != null) {
 					try {
-						mapGrid.setWidget(x, y, current.imageLocate());
+						int adjustment = gridSize - y;
+						mapGrid.setWidget(adjustment, x, current.imageLocate());
 					} catch (NullPointerException ex) {
 						
 					}
