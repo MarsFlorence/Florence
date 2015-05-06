@@ -120,7 +120,7 @@ public class Login {
 		    		  
 		    		    tabPanel.add(theLog.LoggingModulesPanel(),
 		    		    		"Module Logging");
-		    		    tabPanel.add(habitat.makeConfig(),
+		    		    tabPanel.add(habitat.makeHabitatDisplay(),
 		    		    		"Configuration");
 		    		    tabPanel.add(map.makeMap(),
 		    		    		"Optimal Routing");

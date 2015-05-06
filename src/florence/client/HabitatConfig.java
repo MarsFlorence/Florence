@@ -37,10 +37,15 @@ public class HabitatConfig {
 		
 	}
 	
-	public void createConfig(String key){
+	public void createConfig(String name){
 		setTypeArrays();
 		if(isMinimumConfig()){
-			setMinimimumConfig();
+			if(name.equals("min1")){
+				setMinimumConfig1();
+			}
+			else if(name.equals("min2")){
+				setMinimumConfig2();
+			}
 		}
 	}
 	
@@ -121,7 +126,7 @@ public class HabitatConfig {
 		return true;
 	}
 	
-	private void setMinimimumConfig(){
+	private void setMinimumConfig1(){
 		addModule(dormitoryModules.get(0), 50, 50);
 		dormitoryModules.remove(0);
 		addModule(plainModules.get(0), 51, 50);
@@ -143,6 +148,30 @@ public class HabitatConfig {
 		addModule(foodAndWaterModules.get(0), 53, 51);
 		foodAndWaterModules.remove(0);
 		saveConfiguration("min1");
+	}
+	
+	private void setMinimumConfig2(){
+		addModule(dormitoryModules.get(0), 51, 52);
+		dormitoryModules.remove(0);
+		addModule(plainModules.get(0), 51, 51);
+		plainModules.remove(0);
+		addModule(plainModules.get(0), 51, 50);
+		plainModules.remove(0);
+		addModule(plainModules.get(0), 52, 50);
+		plainModules.remove(0);
+		addModule(airlockModules.get(0), 53, 50);
+		airlockModules.remove(0);
+		addModule(sanitationModules.get(0), 50, 51);
+		sanitationModules.remove(0);
+		addModule(powerModules.get(0), 50, 50);
+		powerModules.remove(0);
+		addModule(controlModules.get(0), 52, 51);
+		controlModules.remove(0);
+		addModule(canteenModules.get(0), 51, 49);
+		canteenModules.remove(0);
+		addModule(foodAndWaterModules.get(0), 52, 49);
+		foodAndWaterModules.remove(0);
+		saveConfiguration("min2");
 	}
 	
 	public Module getModuleAtCoordinates(int x, int y){
