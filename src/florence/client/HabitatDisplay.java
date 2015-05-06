@@ -59,7 +59,7 @@ public class HabitatDisplay {
 		}
 	}
 	
-	public ScrollPanel makeConfig() {
+	public ScrollPanel makeHabitatDisplay() {
 		ScrollPanel newPanel = new ScrollPanel();
 		configGrid.setVisible(true);
 		newPanel.add(configGrid);
