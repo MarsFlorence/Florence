@@ -25,7 +25,7 @@ public class JSONsubvertSOP {
 	public void onModuleLoad() {
 		String proxy = "http://www.d.umn.edu/~and02586/Weather.php?url=";
 		String url =
-		proxy+"http://api.wunderground.com/api/f9c8dc6c804056c7/conditions/q/55805.json";
+		proxy+"http://api.wunderground.com/api/f9c8dc6c804056c7/conditions/astronomy/q/55805.json";
 		url = URL.encode(url);
 		// Send request to server and catch any errors.
 		
@@ -72,10 +72,10 @@ public class JSONsubvertSOP {
 			String sVisibility = visibility.toString();
 			
 
-			vp.add(new Label(sTemp)); //TO VIEW
-			vp.add(new Label(sLocation)); //TO VIEW
-			vp.add(new Label(sWeather)); //TO VIEW
-			vp.add(new Label(sVisibility)); //TO VIEW
+			//vp.add(new Label(sTemp)); //TO VIEW
+			//vp.add(new Label(sLocation)); //TO VIEW
+			//vp.add(new Label(sWeather)); //TO VIEW
+			//vp.add(new Label(sVisibility)); //TO VIEW
 
 			vp.add(new Label(sLocation)); //TO VIEW
 			vp.add(new Label("Conditions: " + sWeather)); //TO VIEW
