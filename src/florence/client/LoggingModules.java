@@ -221,17 +221,16 @@ public class LoggingModules {
 				if(testcases.getSelectedIndex() == 0) {
 					
 				} else {
-					moduleLog.clearModules();
 					TestCase test = new TestCase();
 					test.changeCase(testcases.getItemText(testcases.getSelectedIndex()));
 					test.onModuleLoad();
+					moduleLog.clearModules();
 					int counter = 0;
 					while (counter < test.getCount() && test.getTestCase()[counter] != null) {
 						moduleLog.addModule(test.getTestCase()[counter]);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
 					}
-					
 				}
 			}
 		});

@@ -48,7 +48,7 @@ public class TestCase implements EntryPoint {
 						String rt = response.getText();
 						retrieveModules(rt); //METHOD CALL TO DO SOMETHING WITH RESPONSE TEXT
 					} else {
-						Window.alert("Couldn't retrieve JSON (" + response.getStatusText()
+						Window.alert("Couldn't retrieve JSON (" + response.getStatusCode()
 						+ ")");
 					}
 				}
@@ -78,9 +78,9 @@ public class TestCase implements EntryPoint {
 			 c = jN.doubleValue();
 			 jS = (JSONString) jO.get("status");
 			 s = jS.stringValue();
-			 if (s == Status.UNDAMAGED.toString()) {
+			 if (s == Status.UNDAMAGED.toString().toLowerCase()) {
 				 stat = Status.UNDAMAGED;
-			 } else if (s == Status.UNCERTAIN.toString()) {
+			 } else if (s == Status.UNCERTAIN.toString().toLowerCase()) {
 				 stat = Status.UNCERTAIN;
 			 } else {
 				 stat = Status.DAMAGED;
