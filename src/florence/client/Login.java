@@ -9,13 +9,16 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 import florence.weather.JSONsubvertSOP;
 
 /**
@@ -121,7 +124,7 @@ public class Login {
 		    		    tabPanel.add(map.makeMap(),
 		    		    		"Optimal Routing");
 		    		    tabPanel.add(weather.getVP(),
-		    		    		"Weather");	  
+		    		    		"Weather");	
 		    		  if (tabPanel.getTabWidget(1) != null) {
 		    			  tabPanel.selectTab(1);
 		    		  } else {
@@ -141,6 +144,7 @@ public class Login {
 		pan.setCellHorizontalAlignment(
 				submit, HasHorizontalAlignment.ALIGN_LEFT);
 		pan.setCellVerticalAlignment(submit, HasVerticalAlignment.ALIGN_MIDDLE);
+		ListBox selectLang = new ListBox();
 		pan.setVisible(true);
 	}
 	/**

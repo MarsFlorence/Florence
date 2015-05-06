@@ -10,6 +10,10 @@ h1 {
   text-align: center;
 }
 
+#google_translate_element {
+ z-index: 999;	
+}
+
 .mapGrid {
   width: 30px;
   height: 30px;
