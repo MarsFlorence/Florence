@@ -121,9 +121,11 @@ public class LoggingModules {
 						moduleLog.addModule(newMod);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
-						HabitatConfig habitat = new HabitatConfig(moduleLog);
-						habitat.createConfig();
-						habitatDisplay.updateHabitat(habitat);
+						HabitatConfig habitat1 = new HabitatConfig(moduleLog);
+						HabitatConfig habitat2 = new HabitatConfig(moduleLog);
+						habitat1.createConfig("min1");
+						habitat2.createConfig("min2");
+						habitatDisplay.updateHabitat(habitat1);
 						
 						//TODO Stop modules from being placed on top of each other.
 					} else {
