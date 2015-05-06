@@ -5,9 +5,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HabitatDisplay {
@@ -16,8 +18,15 @@ public class HabitatDisplay {
 	private final Grid configGrid = new Grid(gridSize, gridSize);
 	private VerticalPanel panel = new VerticalPanel();
 	private ListBox menu;
+	
+	private TextBox XCoord = new TextBox();
+	private TextBox YCoord = new TextBox();
+	
+	private HabitatConfig habitatConfig;
 
 	public HabitatDisplay(HabitatConfig config){
+		
+		habitatConfig = config;
 		
 		configGrid.addStyleName("mapGrid");
 		
@@ -50,6 +59,8 @@ public class HabitatDisplay {
 	}
 	
 	public void updateHabitat(HabitatConfig config) {
+		habitatConfig = config;
+		
 		Module current;		
 		for (int x = 0; x < gridSize - 1; x++) {
 			for (int y = 0; y < gridSize - 1; y++) {
@@ -77,8 +88,18 @@ public class HabitatDisplay {
 		HorizontalPanel horzPanel = new HorizontalPanel();
 		setDropdown();
 		configGrid.setVisible(true);
+		Label xLabel = new Label("New X Coord");
+		Label yLabel = new Label("New Y Coord");
 		horzPanel.add(menu);
 		horzPanel.add(loadConfig);
+		horzPanel.add(xLabel);
+		XCoord.setWidth("40px");
+		horzPanel.add(XCoord);
+		horzPanel.add(yLabel);
+		YCoord.setWidth("40px");
+		horzPanel.add(YCoord);
+		horzPanel.setSpacing(10);
+		horzPanel.add(changeCenter);
 		panel.add(horzPanel);
 		panel.add(configGrid);
 		panel.setVisible(true);
@@ -93,7 +114,7 @@ public class HabitatDisplay {
 		menu.addItem("min1");
 		menu.addItem("min2");
 	}
-	
+
 	private Button loadConfig = new Button("Load", new ClickHandler() {
 		public void onClick(ClickEvent event) {
 			String key = menu.getValue(menu.getSelectedIndex());
@@ -104,5 +125,20 @@ public class HabitatDisplay {
 			updateHabitat(habitat);
 		}
 	});
+	
+	private Button changeCenter = new Button("Change Center", new ClickHandler() {
+		public void onClick(ClickEvent event) {
+			
+			HabitatConfig habitat = new HabitatConfig();
+			habitat.setCenterX(Integer.parseInt(XCoord.getValue()));
+			habitat.setCenterY(Integer.parseInt(YCoord.getValue()));
+			habitat.setModuleLog(habitatConfig.getModuleLog());
+			habitat.createConfig(habitatConfig.getHabitatKey());
+			
+			updateHabitat(habitat);
+		}
+	});
+	
+	
 	
 }

@@ -8,7 +8,6 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.storage.client.Storage;
-import com.google.gwt.user.client.Window;
 
 public class HabitatConfig {
 	
@@ -26,6 +25,11 @@ public class HabitatConfig {
 	private ArrayList<Module> airlockModules;
 	private ArrayList<Module> medicalModules;
 	
+	private int centerX;
+	private int centerY;
+	
+	private String habitatKey;
+	
 	
 	public HabitatConfig(){
 		habitatConfig = new Module[100][100];	
@@ -38,6 +42,7 @@ public class HabitatConfig {
 	}
 	
 	public void createConfig(String name){
+		setHabitatKey(name);
 		setTypeArrays();
 		if(isMinimumConfig()){
 			if(name.equals("min1")){
@@ -127,49 +132,65 @@ public class HabitatConfig {
 	}
 	
 	private void setMinimumConfig1(){
-		addModule(dormitoryModules.get(0), 50, 50);
+		int x = 50;
+		int y = 50;
+		if(centerX != 0){
+			x = centerX;
+		}
+		if(centerX != 0){
+			y = centerY;
+		}
+		addModule(dormitoryModules.get(0), x - 2, y);
 		dormitoryModules.remove(0);
-		addModule(plainModules.get(0), 51, 50);
+		addModule(plainModules.get(0), x - 1, y);
 		plainModules.remove(0);
-		addModule(plainModules.get(0), 52, 50);
+		addModule(plainModules.get(0), x, y);
 		plainModules.remove(0);
-		addModule(plainModules.get(0), 53, 50);
+		addModule(plainModules.get(0), x + 1, y);
 		plainModules.remove(0);
-		addModule(airlockModules.get(0), 54, 50);
+		addModule(airlockModules.get(0), x + 2, y);
 		airlockModules.remove(0);
-		addModule(sanitationModules.get(0), 51, 49);
+		addModule(sanitationModules.get(0), x - 1, y - 1);
 		sanitationModules.remove(0);
-		addModule(powerModules.get(0), 52, 49);
+		addModule(powerModules.get(0), x, y - 1);
 		powerModules.remove(0);
-		addModule(controlModules.get(0), 53, 49);
+		addModule(controlModules.get(0), x + 1, y - 1);
 		controlModules.remove(0);
-		addModule(canteenModules.get(0), 52, 51);
+		addModule(canteenModules.get(0), x, y + 1);
 		canteenModules.remove(0);
-		addModule(foodAndWaterModules.get(0), 53, 51);
+		addModule(foodAndWaterModules.get(0), x + 1, y + 1);
 		foodAndWaterModules.remove(0);
 		saveConfiguration("min1");
 	}
 	
 	private void setMinimumConfig2(){
-		addModule(dormitoryModules.get(0), 51, 52);
+		int x = 50;
+		int y = 50;
+		if(centerX != 0){
+			x = centerX;
+		}
+		if(centerX != 0){
+			y = centerY;
+		}
+		addModule(dormitoryModules.get(0), x, y + 2);
 		dormitoryModules.remove(0);
-		addModule(plainModules.get(0), 51, 51);
+		addModule(plainModules.get(0), x, y + 1);
 		plainModules.remove(0);
-		addModule(plainModules.get(0), 51, 50);
+		addModule(plainModules.get(0), x, y);
 		plainModules.remove(0);
-		addModule(plainModules.get(0), 52, 50);
+		addModule(plainModules.get(0), x + 1, y);
 		plainModules.remove(0);
-		addModule(airlockModules.get(0), 53, 50);
+		addModule(airlockModules.get(0), x + 2, y);
 		airlockModules.remove(0);
-		addModule(sanitationModules.get(0), 50, 51);
+		addModule(sanitationModules.get(0), x - 1, y + 1);
 		sanitationModules.remove(0);
-		addModule(powerModules.get(0), 50, 50);
+		addModule(powerModules.get(0), x - 1, y);
 		powerModules.remove(0);
-		addModule(controlModules.get(0), 52, 51);
+		addModule(controlModules.get(0), x + 1, y + 1);
 		controlModules.remove(0);
-		addModule(canteenModules.get(0), 51, 49);
+		addModule(canteenModules.get(0), x, y - 1);
 		canteenModules.remove(0);
-		addModule(foodAndWaterModules.get(0), 52, 49);
+		addModule(foodAndWaterModules.get(0), x + 1, y - 1);
 		foodAndWaterModules.remove(0);
 		saveConfiguration("min2");
 	}
@@ -244,7 +265,7 @@ public class HabitatConfig {
 	}
 	/**
 	 * Loads a configuration from local storage into this habitat configuration.
-	 * TODO: NOT TESTED!!!****
+	 * 
 	 * @param name The name of the configuration to load.
 	 * @return true if the configuration was loaded, else false
 	 */
@@ -302,8 +323,27 @@ public class HabitatConfig {
 				habitatConfig.getHabitatConfig()[xPos][yPos] = newModule;
 				
 			}
+			habitatConfig.setHabitatKey(name);
 			return habitatConfig;
 		}
 		return null;
+	}
+	public int getCenterX() {
+		return centerX;
+	}
+	public void setCenterX(int centerX) {
+		this.centerX = centerX;
+	}
+	public int getCenterY() {
+		return centerY;
+	}
+	public void setCenterY(int centerY) {
+		this.centerY = centerY;
+	}
+	public String getHabitatKey() {
+		return habitatKey;
+	}
+	public void setHabitatKey(String habitatKey) {
+		this.habitatKey = habitatKey;
 	}
 }
