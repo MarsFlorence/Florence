@@ -51,6 +51,11 @@ public class HabitatDisplay {
 	
 	public void updateHabitat(HabitatConfig config) {
 		Module current;		
+		for (int x = 0; x < gridSize - 1; x++) {
+			for (int y = 0; y < gridSize - 1; y++) {
+				configGrid.setWidget(x, y, null);
+			}
+		}
 		for (int x = 0; x < gridSize; x++) {
 			for (int y = 0; y < gridSize; y++) {
 				current = config.getModuleAtCoordinates(x, y);
@@ -92,6 +97,11 @@ public class HabitatDisplay {
 	private Button loadConfig = new Button("Load", new ClickHandler() {
 		public void onClick(ClickEvent event) {
 			String key = menu.getValue(menu.getSelectedIndex());
+			
+			HabitatConfig habitat = new HabitatConfig();
+			habitat = habitat.loadConfiguration(key);
+			
+			updateHabitat(habitat);
 		}
 	});
 	
