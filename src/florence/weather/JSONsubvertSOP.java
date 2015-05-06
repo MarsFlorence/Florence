@@ -30,7 +30,6 @@ public class JSONsubvertSOP {
 		// Send request to server and catch any errors.
 		
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
-		builder.setTimeoutMillis(5000);
 		builder.setHeader("Access-Control-Allow-Origin", "*");
 		try {
 		  Request request = builder.sendRequest(null, new RequestCallback() {
@@ -49,9 +48,9 @@ public class JSONsubvertSOP {
 		    }
 		  });
 		} catch (RequestException e) {
-			Window.alert("RequestException: Couldn't retrieve JSON");
+			
 		}
-		
+		Window.alert("Updated Weather Forecast");
 	}	
 		public void update(String rt) {
 			
@@ -75,8 +74,6 @@ public class JSONsubvertSOP {
 			
 			JSONObject jHourObject = 
 					(JSONObject)JSONParser.parseLenient(jSunset.toString());
-			
-			
 		//Astronomy end
 			
 			
