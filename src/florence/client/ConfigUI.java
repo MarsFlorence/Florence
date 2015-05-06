@@ -32,15 +32,15 @@ public class ConfigUI {
 		mapGrid.addStyleName("mapGrid");
 		mapGrid.setCellPadding(0);
 		
-		for (int i = 0; i < mapGrid.getRowCount(); i++) {
-            for (int j = 0; j < mapGrid.getCellCount(i); j++) {
-                   mapGrid.getCellFormatter().setStyleName(i, j, "tableCell-all");
-            }
-        }
 		
 		for (int y = 0; y < gridSize; y++) {
 			for (int x = 0; x < gridSize; x++) {
 				current = extractor[x][y];
+				try {
+					mapGrid.getCellFormatter().setStyleName(x, y, "tableCell-all");
+				} catch (NullPointerException here) {
+					
+				}
 				if (current != null) {
 					int adjustment = gridSize - y;
 					try {
