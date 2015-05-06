@@ -3,6 +3,8 @@ package florence.client;
 import com.allen_sauer.gwt.voices.client.Sound;
 import com.allen_sauer.gwt.voices.client.SoundController;
 import com.allen_sauer.gwt.voices.client.SoundType;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.storage.client.Storage;
@@ -14,14 +16,17 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import florence.testcase.TestCase;
 /**
  * Class that sets up module logging UI and checks
  * the input of user.
  */
 public class LoggingModules {
-	
+	/**
+	 * The ConfigUI object that will display the map to user.
+	 */
 	private ConfigUI mapDisplay = null;
-	
 	private HabitatDisplay habitatDisplay = null;
 	
 	public HabitatDisplay getHabitatDisplay() {
@@ -56,6 +61,10 @@ public class LoggingModules {
 	 */
 	private ListBox modOrientation = new ListBox();
 	/**
+	 * This contains all known test cases.
+	 */
+	private final ListBox testcases = new ListBox();
+	/**
 	 * The module's x-coordinate input field.
 	 */
 	private TextBox modXCoord = new TextBox();
@@ -83,13 +92,10 @@ public class LoggingModules {
 	 * Handles sound.
 	 */
 	private SoundController soundControl = new SoundController();
-	
 	/**
 	 * Hold the "Module Logged" confirmation message.
 	 */
 	private Sound confirmation;
-	
-	
 	/**
 	 * When triggered logs user's input after checking for errors.
 	 */
@@ -140,21 +146,17 @@ public class LoggingModules {
 					}
 				} else {
 					Window.alert("This module has already been logged.");
-
 				}
-
 				//Clears all input data for next input.
 				modNum.setValue("");
 				modStatus.setSelectedIndex(0);
 				modOrientation.setSelectedIndex(0);
 				modXCoord.setValue("");
 				modYCoord.setValue("");
-
 				//Calls MinMaxConfigs functions here 
 				//only if the module logged is not DAMAGED
 				if (newMod.getStatus() == Status.UNDAMAGED 
 						|| newMod.getStatus() == Status.UNCERTAIN) {
-
 					modConfigs.addModuleItem(newMod.getModType());
 					if (modConfigs.checkMinCond()) {
 						/*This block will run when the minimum condition is met:
@@ -172,18 +174,13 @@ public class LoggingModules {
 						 */
 						Window.alert("ALERT :"
 								+ " Maximum configuration has been reached.");
-
 					}
 				}
-			}
-			else{
+			} else {
 				Window.alert("Please complete all fields");
 			}
 		}
-	      
 	    });
-	
-		//TODO remove deleted module from map
 		/**
 		 * This button deletes a module from the table and map.
 		 */
@@ -213,6 +210,31 @@ public class LoggingModules {
 		modOrientation.addItem("0");
 		modOrientation.addItem("1");
 		modOrientation.addItem("2");
+		testcases.addItem("Enter Modules");
+		testcases.addItem("1");
+		testcases.addItem("2");
+		testcases.addItem("3");
+		testcases.setItemSelected(0, true);
+		testcases.addChangeHandler(new ChangeHandler() {
+			
+			public void onChange(ChangeEvent select){
+				if(testcases.getSelectedIndex() == 0) {
+					
+				} else {
+					moduleLog.clearModules();
+					TestCase test = new TestCase();
+					test.changeCase(testcases.getItemText(testcases.getSelectedIndex()));
+					test.onModuleLoad();
+					int counter = 0;
+					while (counter < test.getCount() && test.getTestCase()[counter] != null) {
+						moduleLog.addModule(test.getTestCase()[counter]);
+						addTable();
+						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+					}
+					
+				}
+			}
+		});
 		Label numLabel = new Label("Module ID:");
 		Label statusLabel = new Label("Module Status:");
 		Label numOrientation = new Label("Module Orientation:");
@@ -238,8 +260,8 @@ public class LoggingModules {
 		panel.add(removeModLabel);
 		panel.add(deleteModId);
 		panel.add(deleteMod);
+		panel.add(testcases);
 		tableScroll.add(panel);
-		
 		//Retrieve Data From local storage and add it to the table
 		moduleStore = Storage.getLocalStorageIfSupported();
 		if (moduleStore != null) {

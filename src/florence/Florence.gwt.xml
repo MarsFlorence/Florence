@@ -9,6 +9,7 @@
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.json.JSON'/>
+  <inherits name='com.google.gwt.http.HTTP'/>
   
   <!-- Inherit sound support -->
   <inherits name='com.allen_sauer.gwt.voices.gwt-voices'/>
@@ -30,6 +31,7 @@
   <source path='client'/>
   <source path='shared'/>
   <source path='weather'/>
+  <source path='testcase'/>
 
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
