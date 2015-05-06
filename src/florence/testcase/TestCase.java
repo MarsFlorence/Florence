@@ -29,7 +29,7 @@ public class TestCase implements EntryPoint {
 	
 	public void onModuleLoad() {
 		String proxy =
-				"http://www.d.umn.edu/~and02586/Proxy.php?url=";
+				"http://www.d.umn.edu/~samue223/Proxy.php?url=";
 				String url =
 				proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + requestedCase;
 				url = URL.encode(url);
