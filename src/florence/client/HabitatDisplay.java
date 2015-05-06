@@ -121,6 +121,9 @@ public class HabitatDisplay {
 			
 			HabitatConfig habitat = new HabitatConfig();
 			habitat = habitat.loadConfiguration(key);
+			habitat.setModuleLog(habitatConfig.getModuleLog());
+			
+			habitatConfig = habitat;
 			
 			updateHabitat(habitat);
 		}
@@ -134,6 +137,8 @@ public class HabitatDisplay {
 			habitat.setCenterY(Integer.parseInt(YCoord.getValue()));
 			habitat.setModuleLog(habitatConfig.getModuleLog());
 			habitat.createConfig(habitatConfig.getHabitatKey());
+			
+			habitatConfig = habitat;
 			
 			updateHabitat(habitat);
 		}
