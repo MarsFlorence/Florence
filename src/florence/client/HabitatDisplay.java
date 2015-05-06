@@ -91,7 +91,7 @@ public class HabitatDisplay {
 	
 	private Button loadConfig = new Button("Load", new ClickHandler() {
 		public void onClick(ClickEvent event) {
-			
+			String key = menu.getValue(menu.getSelectedIndex());
 		}
 	});
 	
