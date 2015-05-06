@@ -1,13 +1,21 @@
 package florence.client;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HabitatDisplay {
 	
 	private final int gridSize = 100;
 	private final Grid configGrid = new Grid(gridSize, gridSize);
+	private VerticalPanel panel = new VerticalPanel();
+	private ListBox menu;
 
 	public HabitatDisplay(HabitatConfig config){
 		
@@ -61,10 +69,30 @@ public class HabitatDisplay {
 	
 	public ScrollPanel makeHabitatDisplay() {
 		ScrollPanel newPanel = new ScrollPanel();
+		HorizontalPanel horzPanel = new HorizontalPanel();
+		setDropdown();
 		configGrid.setVisible(true);
-		newPanel.add(configGrid);
+		horzPanel.add(menu);
+		horzPanel.add(loadConfig);
+		panel.add(horzPanel);
+		panel.add(configGrid);
+		panel.setVisible(true);
+		newPanel.add(panel);
 		newPanel.setVisible(true);
 		return newPanel;
 	}
+	
+	private void setDropdown(){
+		menu = new ListBox();
+		
+		menu.addItem("min1");
+		menu.addItem("min2");
+	}
+	
+	private Button loadConfig = new Button("Load", new ClickHandler() {
+		public void onClick(ClickEvent event) {
+			
+		}
+	});
 	
 }
