@@ -27,6 +27,15 @@ public class LoggingModules {
 	 * The ConfigUI object that will display the map to user.
 	 */
 	private ConfigUI mapDisplay = null;
+	private HabitatDisplay habitatDisplay = null;
+	
+	public HabitatDisplay getHabitatDisplay() {
+		return habitatDisplay;
+	}
+	public void setHabitatDisplay(HabitatDisplay habitatDisplay) {
+		this.habitatDisplay = habitatDisplay;
+	}
+
 	/**
 	 * The moduleStore object to save to html5.
 	 */
@@ -125,6 +134,12 @@ public class LoggingModules {
 						moduleLog.addModule(newMod);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+						HabitatConfig habitat1 = new HabitatConfig(moduleLog);
+						HabitatConfig habitat2 = new HabitatConfig(moduleLog);
+						habitat1.createConfig("min1");
+						habitat2.createConfig("min2");
+						habitatDisplay.updateHabitat(habitat1);
+						
 						//TODO Stop modules from being placed on top of each other.
 					} else {
 						Window.alert("Module not added. Check ID and Coordinates.");
@@ -252,12 +267,26 @@ public class LoggingModules {
 		if (moduleStore != null) {
 			for (int i = 0; i < moduleStore.getLength(); i++) {
 				String key = moduleStore.key(i);
-				String value = moduleStore.getItem(key);		
-				Module loadedModule = loadFromLocalStorage(value);
-    	  		moduleStore.removeItem(key);
-    	  		moduleLog.addModule(loadedModule);
-    	  		addTable();
+				String value = moduleStore.getItem(key);
+				if(!value.contains("{")){ //CHECKS TO SEE THAT IT IS ONLY ADDING MODULES AND NOT CONFIGURATIONS ****
+					Module loadedModule = loadFromLocalStorage(value);
+					moduleStore.removeItem(key);
+					moduleLog.addModule(loadedModule);
+					addTable();
+				} 
 			}
+  		  	HabitatDisplay habbydisplay = new HabitatDisplay(new HabitatConfig(moduleLog));
+  		  	attachHabitat(habbydisplay);			
+			boolean minConfigCreated = false;
+			if(minConfigCreated == false){
+				HabitatConfig config = new HabitatConfig();
+				HabitatConfig newConfig = config.loadConfiguration("min1");	
+				if(newConfig != null){	
+					newConfig.setModuleLog(moduleLog);
+					habitatDisplay.updateHabitat(newConfig);
+					minConfigCreated = true;
+				} 
+			}			
 		}	
 	}
 	/**
@@ -329,5 +358,10 @@ public class LoggingModules {
 	 */
 	public void attachMap(ConfigUI map) {
 		mapDisplay = map;
+	}
+	
+	public void attachHabitat(HabitatDisplay habitat) {
+		habitatDisplay = habitat;
+		
 	}
 }
