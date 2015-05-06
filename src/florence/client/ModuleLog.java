@@ -13,6 +13,9 @@ public class ModuleLog {
 	public ModuleLog() {
 		moduleLog = new ArrayList<Module>();
 	}
+	public void clearModules() {
+		moduleLog.clear();
+	}
 	/**
 	 * Method that adds module to moduleLog array.
 	 * @param mod the module the be added to moduleLog
