@@ -37,7 +37,7 @@ public class HabitatConfig {
 		
 	}
 	
-	public void createConfig(){
+	public void createConfig(String key){
 		setTypeArrays();
 		if(isMinimumConfig()){
 			setMinimimumConfig();
