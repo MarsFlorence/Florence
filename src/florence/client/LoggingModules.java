@@ -236,11 +236,13 @@ public class LoggingModules {
 		if (moduleStore != null) {
 			for (int i = 0; i < moduleStore.getLength(); i++) {
 				String key = moduleStore.key(i);
-				String value = moduleStore.getItem(key);		
-				Module loadedModule = loadFromLocalStorage(value);
-    	  		moduleStore.removeItem(key);
-    	  		moduleLog.addModule(loadedModule);
-    	  		addTable();
+				String value = moduleStore.getItem(key);
+				if(!value.contains("{")){ //CHECKS TO SEE THAT IT IS ONLY ADDING MODULES AND NOT CONFIGURATIONS ****
+					Module loadedModule = loadFromLocalStorage(value);
+					moduleStore.removeItem(key);
+					moduleLog.addModule(loadedModule);
+					addTable();
+				}
 			}
 		}	
 	}
