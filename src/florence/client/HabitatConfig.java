@@ -237,6 +237,68 @@ public class HabitatConfig {
 		this.moduleLog = moduleLog;
 	}
 	
+	private void calculateConfig(){
+		int plainNumber = plainModules.size();
+		int dormNumber = dormitoryModules.size();
+		int sanitationNumber = sanitationModules.size();
+		int controlNumber = controlModules.size();
+		int foodNumber = foodAndWaterModules.size();
+		int gymNumber = gymAndRelaxationModules.size();
+		int canteenNumber = canteenModules.size();
+		int powerNumber = powerModules.size();
+		int airlockNumber = airlockModules.size();
+		int medicalNumber = medicalModules.size();
+		
+		int dormGroup = 0; // 2 dormitory, 1 sanitation, 2 plain
+		int dormGymGroup = 0; // 2 dormitory, 1 sanitation, 2 plain, 1 gym
+		int powerControlGroup = 0; // 1 power, 1 control, 1 plain
+		int foodBasicGroup = 0; // 1 canteen, 1 food, 1 plain
+		int foodLargeGroup = 0; // 1 canteen, 3 food, 2 plain
+		int airlockMedGroup = 0; // 1 airlock, 1 medical, 1 plain
+		
+		while(dormNumber >= 2 && sanitationNumber >= 1 && plainNumber >= 2){
+			dormNumber = dormNumber - 2;
+			sanitationNumber--;
+			plainNumber = plainNumber - 2;
+			if(gymNumber >= 1){
+				gymNumber--;
+				dormGymGroup++;
+			}
+			else{
+				dormGroup++;
+			}
+		}
+		
+		while(powerNumber >= 1 && controlNumber >= 1 && plainNumber >= 1){
+			powerNumber--;
+			controlNumber--;
+			plainNumber--;
+			powerControlGroup--;
+		}
+		
+		while(canteenNumber >= 1 && foodNumber >= 1 && plainNumber >= 1){
+			canteenNumber--;
+			if(foodNumber >= 3 && plainNumber >= 2){
+				foodNumber = foodNumber - 3;
+				plainNumber = plainNumber - 2;
+				foodLargeGroup++;
+			}
+			else{
+				foodNumber--;
+				plainNumber--;
+				foodBasicGroup++;
+			}
+		}
+		
+		while(airlockNumber >= 1 && medicalNumber >= 1 && plainNumber >= 1){
+			airlockNumber--;
+			medicalNumber--;
+			plainNumber--;
+			airlockMedGroup++;
+		}
+		
+	}
+	
 	/**
 	 * Saves this habitat configuration onto HTML5 local storage.
 	 * @param name The name of this configuration (ex: "min1").
