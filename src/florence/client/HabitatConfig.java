@@ -239,6 +239,7 @@ public class HabitatConfig {
 			double y;
 			int xPos;
 			int yPos;
+			//loop through jsonarray
 			for(int i = 0; i < array.size(); i++){
 				JSONObject object = (JSONObject) array.get(i);
 				number = (JSONNumber) object.get("id");

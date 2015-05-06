@@ -24,6 +24,13 @@ public class LoggingModules {
 	
 	private HabitatDisplay habitatDisplay = null;
 	
+	public HabitatDisplay getHabitatDisplay() {
+		return habitatDisplay;
+	}
+	public void setHabitatDisplay(HabitatDisplay habitatDisplay) {
+		this.habitatDisplay = habitatDisplay;
+	}
+
 	/**
 	 * The moduleStore object to save to html5.
 	 */
@@ -244,11 +251,22 @@ public class LoggingModules {
 					moduleStore.removeItem(key);
 					moduleLog.addModule(loadedModule);
 					addTable();
-				} else{
-					HabitatConfig config = new HabitatConfig();
-					HabitatConfig newConfig = config.loadConfiguration("min1");	
-				}
+				} 
 			}
+  		  	HabitatDisplay habbydisplay = new HabitatDisplay(new HabitatConfig(moduleLog));
+  		  	attachHabitat(habbydisplay);			
+			boolean minConfigCreated = false;
+			if(minConfigCreated == false){
+				HabitatConfig config = new HabitatConfig();
+				HabitatConfig newConfig = config.loadConfiguration("min1");	
+				if(newConfig != null){	
+					newConfig.setModuleLog(moduleLog);
+					habitatDisplay.updateHabitat(newConfig);
+					minConfigCreated = true;
+				} else{
+					Window.alert("The minimum config is not available, but a configuration is saved. Error.");
+				}
+			}			
 		}	
 	}
 	/**

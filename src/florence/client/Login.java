@@ -114,8 +114,7 @@ public class Login {
 		    		  ConfigUI map = new ConfigUI(theLog.getModLog(), theLog.getModLog().getSize());
 		    		  theLog.attachMap(map);
 		    		  
-		    		  HabitatDisplay habitat = new HabitatDisplay(new HabitatConfig(theLog.getModLog()));
-		    		  theLog.attachHabitat(habitat);
+		    		  HabitatDisplay habitat = theLog.getHabitatDisplay();
 		    		  
 		    		  JSONsubvertSOP weather = new JSONsubvertSOP();
 		    		  
