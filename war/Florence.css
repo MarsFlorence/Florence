@@ -22,7 +22,8 @@ h1 {
   border-color: black;
   background: url("images/Surface.jpg");
   background-repeat: repeat; 
-  background-position: 0px 0px;    
+  background-position: 0px 0px;
+  border-bottom-width: 50px;     
 }
 
 .tableCell-all {
