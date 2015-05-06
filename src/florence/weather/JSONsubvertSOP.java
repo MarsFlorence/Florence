@@ -30,6 +30,7 @@ public class JSONsubvertSOP {
 		// Send request to server and catch any errors.
 		
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
+		builder.setHeader("Access-Control-Allow-Origin", "*");
 		try {
 		  Request request = builder.sendRequest(null, new RequestCallback() {
 			  
@@ -37,7 +38,8 @@ public class JSONsubvertSOP {
 			Window.alert("onError: Couldn't retrieve JSON");
 		}
 		    public void onResponseReceived(Request request, Response response) {
-		        if (200 == response.getStatusCode()) {
+		    	
+;		        if (200 == response.getStatusCode()) {
 		            String rt = response.getText();
 		            update(rt); //METHOD CALL TO DO SOMETHING WITH RESPONSE TEXT
 		        } else {
@@ -56,36 +58,57 @@ public class JSONsubvertSOP {
 			JSONObject jA = 
 					(JSONObject)JSONParser.parseLenient(sAll);
 			JSONValue jTry = jA.get("current_observation");
-			//String sTry = jTry.toString();
+			
+			
+		//Astronomy start : going into sun_phase
+			JSONObject jC = 
+					(JSONObject)JSONParser.parseLenient(sAll);
+			JSONValue jTry1 = jC.get("sun_phase");
+			
+			JSONObject jD = (JSONObject)JSONParser.parseLenient(jTry1.toString());
+		//Astronomy end
+			
+			
+		//Astronomy : going into sunset
+			JSONValue jSunset = jD.get("sunset");
+			
+			JSONObject jHourObject = 
+					(JSONObject)JSONParser.parseLenient(jSunset.toString());
+			//JSONValue jSunset = jD.get("sunset");
+			
+			JSONObject jG = (JSONObject)JSONParser.parseLenient(jTry1.toString());
+		//Astronomy end
+			
+			
 			
 			JSONObject jB = (JSONObject)JSONParser.parseLenient(jTry.toString());
 			JSONValue temp = jB.get("temperature_string");
-			JSONValue location = jB.get("full");
 			JSONValue weather = jB.get("weather");
 			JSONValue visibility = jB.get("visibility_km");
 			
-			// Astronomy
-			JSONValue sunrise = jB.get("sunrise");
-			JSONValue sunset = jB.get("sunset");
+		//Astronomy : time until sunset
+			JSONValue hr = jD.get("hour");
+			JSONValue min = jD.get("minute");
+		//Astronomy end
 			
 			String sTemp = temp.toString();
-			String sLocation = location.toString();
 			String sWeather = weather.toString();
 			String sVisibility = visibility.toString();
 			
-			//Astronomy
-			String sSunrise = sunrise.toString();
-			String sSunset = sunset.toString();
+		//Astronomy 
+			String sSunsetHr = hr.toString();
+			String sSunsetMin = min.toString();
+		//Astronomy end
 
-			vp.add(new Label(sLocation)); //TO VIEW
+			
+			//vp.add(new Label(sLocation)); //TO VIEW
 			vp.add(new Label("Conditions: " + sWeather)); //TO VIEW
 			vp.add(new Label("Temperature: " + sTemp)); //TO VIEW
 			vp.add(new Label("Visibility: " + sVisibility)); //TO VIEW
 			
-			//Astronomy
-			vp.add(new Label("Sunrise: " + sSunrise)); //TO VIEW
-			vp.add(new Label("Sunset: " + sSunset)); //TO VIEW
-			
+		//Astronomy start
+			vp.add(new Label("Sunset: " + sSunsetHr + " hours and " + sSunsetMin + " minutes")); //TO VIEW
+		//Astronomy end
 
 			DockPanel dock = new DockPanel();
 			dock.add(new Image("images/wundergroundLogo_4c_horz.jpg"),DockPanel.WEST);
