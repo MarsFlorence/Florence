@@ -263,9 +263,7 @@ public class LoggingModules {
 					newConfig.setModuleLog(moduleLog);
 					habitatDisplay.updateHabitat(newConfig);
 					minConfigCreated = true;
-				} else{
-					Window.alert("The minimum config is not available, but a configuration is saved. Error.");
-				}
+				} 
 			}			
 		}	
 	}
