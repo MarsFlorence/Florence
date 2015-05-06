@@ -242,6 +242,9 @@ public class LoggingModules {
 					moduleStore.removeItem(key);
 					moduleLog.addModule(loadedModule);
 					addTable();
+				} else{
+					HabitatConfig config = new HabitatConfig();
+					HabitatConfig newConfig = config.loadConfiguration("min1");	
 				}
 			}
 		}	
