@@ -167,14 +167,6 @@ public class LoggingModules {
 						Window.alert("ALERT :"
 								+ " Minimum configuration has been reached.");
 					}
-					else if (modConfigs.checkMaxCond()) {
-						/*This block will run when the maximum condition is met:
-						 * ALERT
-						 * 
-						 */
-						Window.alert("ALERT :"
-								+ " Maximum configuration has been reached.");
-					}
 				}
 			} else {
 				Window.alert("Please complete all fields");
@@ -273,6 +265,21 @@ public class LoggingModules {
 					moduleStore.removeItem(key);
 					moduleLog.addModule(loadedModule);
 					addTable();
+					if (loadedModule.getStatus() == Status.UNDAMAGED 
+							|| loadedModule.getStatus() == Status.UNCERTAIN) {
+						
+						if(modConfigs != null){
+							modConfigs.addModuleItem(loadedModule.getModType());
+							if (modConfigs.checkMinCond()) {
+								/*This block will run when the minimum condition is met:
+								 * ALERT
+								 * Gives user the option to view two minimum habitat
+								 * configurations (possibly use HistoryExample Lab) 
+								 */
+								Window.alert("ALERT: Minimum configuration has been reached.");
+							}
+						}
+					}
 				} 
 			}
   		  	HabitatDisplay habbydisplay = new HabitatDisplay(new HabitatConfig(moduleLog));
