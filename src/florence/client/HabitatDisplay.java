@@ -18,8 +18,9 @@ public class HabitatDisplay {
 	private final int gridSize = 100;
 	private final Grid configGrid = new Grid(gridSize, gridSize);
 	private VerticalPanel panel = new VerticalPanel();
-	private ListBox menu;
+	private ListBox menu= new ListBox();
 	
+	private Label quality = new Label();
 	private TextBox XCoord = new TextBox();
 	private TextBox YCoord = new TextBox();
 	
@@ -84,6 +85,7 @@ public class HabitatDisplay {
 				}
 			}
 		}
+		quality.setText("Quality: " + Double.toString(habitatConfig.getQualityPercent()));
 		setDropdown();
 	}
 	
@@ -109,6 +111,8 @@ public class HabitatDisplay {
 		configName.setWidth("80px");
 		horzPanel.add(configName);
 		horzPanel.add(calculateConfig);
+		quality.setText("Quality: " + Double.toString(habitatConfig.getQualityPercent()));
+		horzPanel.add(quality);
 		panel.add(horzPanel);
 		panel.add(configGrid);
 		panel.setVisible(true);
@@ -118,8 +122,7 @@ public class HabitatDisplay {
 	}
 	
 	public void setDropdown(){
-		menu = new ListBox();
-		
+		menu.clear();
 		
 		Storage moduleStore = Storage.getLocalStorageIfSupported();
 		if (moduleStore != null) {
@@ -142,7 +145,7 @@ public class HabitatDisplay {
 			habitat.setModuleLog(habitatConfig.getModuleLog());
 			
 			habitatConfig = habitat;
-			
+			quality.setText("Quality: " + Double.toString(habitat.getQualityPercent()));
 			updateHabitat(habitat);
 		}
 	});
@@ -170,9 +173,9 @@ public class HabitatDisplay {
 				habitat.setCenterX(20);
 				habitat.setCenterY(20);
 				habitat.createConfig(configName.getValue());
-			
+				setDropdown();
 				habitatConfig = habitat;
-			
+				quality.setText("Quality: " + Double.toString(habitat.getQualityPercent()));
 				updateHabitat(habitat);
 			}
 		}

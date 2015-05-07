@@ -29,8 +29,14 @@ public class HabitatConfig {
 	private int centerY;
 	
 	private String habitatKey;
+	private double qualityPercent;
 	
-	
+	public double getQualityPercent() {
+		return qualityPercent;
+	}
+	public void setQualityPercent(double qualityPercent) {
+		this.qualityPercent = qualityPercent;
+	}
 	public HabitatConfig(){
 		habitatConfig = new Module[100][100];	
 	}
@@ -163,6 +169,8 @@ public class HabitatConfig {
 		canteenModules.remove(0);
 		addModule(foodAndWaterModules.get(0), x + 1, y + 1);
 		foodAndWaterModules.remove(0);
+		
+		getQuality();
 		saveConfiguration("min1");
 	}
 	
@@ -195,6 +203,8 @@ public class HabitatConfig {
 		canteenModules.remove(0);
 		addModule(foodAndWaterModules.get(0), x + 1, y - 1);
 		foodAndWaterModules.remove(0);
+		
+		getQuality();
 		saveConfiguration("min2");
 	}
 	
@@ -418,10 +428,11 @@ public class HabitatConfig {
 			x = x + 2;
 		}
 		
+		getQuality();
+		
 		saveConfiguration(key);
 		
 	}
-	
 	/**
 	 * Saves this habitat configuration onto HTML5 local storage.
 	 * @param name The name of this configuration (ex: "min1").
@@ -512,6 +523,23 @@ public class HabitatConfig {
 			return habitatConfig;
 		}
 		return null;
+	}
+	private void getQuality(){
+		int modulesLeft = 0; 
+		modulesLeft += plainModules.size();
+		modulesLeft += dormitoryModules.size();
+		modulesLeft += sanitationModules.size();
+		modulesLeft += controlModules.size();
+		modulesLeft += foodAndWaterModules.size();
+		modulesLeft += gymAndRelaxationModules.size();
+		modulesLeft += canteenModules.size();
+		modulesLeft += powerModules.size();
+		modulesLeft += airlockModules.size();
+		modulesLeft += medicalModules.size();
+		int totalMods = moduleLog.getSize();
+		int usedMods = totalMods - modulesLeft;
+		double quality = (usedMods * 100) / totalMods;
+		qualityPercent = quality;
 	}
 	public int getCenterX() {
 		return centerX;
