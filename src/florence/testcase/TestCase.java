@@ -24,10 +24,12 @@ import florence.client.Status;
 public class TestCase implements EntryPoint {
 	
 	private String requestedCase = "1";
-	private Module[] testCase = new Module[100];
+	private Module[] testCase;
 	private int count;
+	private VerticalPanel vp = new VerticalPanel();
 	
 	public void onModuleLoad() {
+		//String proxy = "http://www.d.umn.edu/~samue223/Proxy.php?url=";
 		String url =
 				"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + requestedCase;
 		url = URL.encode(url);
@@ -45,6 +47,7 @@ public class TestCase implements EntryPoint {
 					if (200 == response.getStatusCode()) {
 						String rt = response.getText();
 						retrieveModules(rt); //METHOD CALL TO DO SOMETHING WITH RESPONSE TEXT
+						//update(rt);
 					} else {
 						Window.alert("Couldn't retrieve JSON (" + response.getStatusCode()
 						+ ")");
@@ -52,8 +55,9 @@ public class TestCase implements EntryPoint {
 				}
 			});
 		} catch (RequestException e) {
-				 Window.alert("RequestException: Couldn't retrieve JSON");
+				 //Window.alert("RequestException: Couldn't retrieve JSON");
 		}
+		Window.alert("Modules Loaded");
 	}
 	
 	public void changeCase(String newCase){
@@ -70,6 +74,8 @@ public class TestCase implements EntryPoint {
 		 double c,t,x,y;
 		 String s;
 		 Status stat;
+		 testCase = new Module[jA.size()];
+		 count = jA.size();
 		for (int i = 0; i < jA.size(); i++) {
 			JSONObject jO = (JSONObject)jA.get(i);
 			 jN = (JSONNumber) jO.get("code");
@@ -91,8 +97,11 @@ public class TestCase implements EntryPoint {
 			 y = jN.doubleValue();
 			 Module newMod = new Module((int)c,stat,(int)t,x,y);
 			 testCase[i] = newMod;
-			 count++;
 		}
+	}
+	
+	public VerticalPanel getVP() {
+		return vp;
 	}
 	
 	public Module[] getTestCase() {
@@ -104,7 +113,7 @@ public class TestCase implements EntryPoint {
 	}
 	
 	public void update(String rt) {
-		 VerticalPanel vp = new VerticalPanel();
+		 
 		 vp.add(new Label(rt)); //TO VIEW
 		 //RootLayoutPanel.get().add(vp);
 

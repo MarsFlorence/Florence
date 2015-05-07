@@ -219,10 +219,10 @@ public class LoggingModules {
 					TestCase test = new TestCase();
 					test.changeCase(testcases.getItemText(testcases.getSelectedIndex()));
 					test.onModuleLoad();
+					Module[] loadThese = test.getTestCase();
 					moduleLog.clearModules();
-					int counter = 0;
-					while (counter < test.getCount() && test.getTestCase()[counter] != null) {
-						moduleLog.addModule(test.getTestCase()[counter]);	
+					for (int count = 0; count < loadThese.length; count++) {
+						moduleLog.addModule(loadThese[count]);
 					}
 					addTable();
 					mapDisplay.updateMap(moduleLog, moduleLog.getSize());
@@ -257,6 +257,8 @@ public class LoggingModules {
 		panel.add(deleteMod);
 		panel.add(testLabel);
 		panel.add(testcases);
+		TestCase testC = new TestCase();
+		panel.add(testC.getVP());
 		tableScroll.add(panel);
 		//Retrieve Data From local storage and add it to the table
 		moduleStore = Storage.getLocalStorageIfSupported();
