@@ -62,7 +62,12 @@ public class ConfigUI {
 	public void updateMap(ModuleLog newLog, int newSize) {
 		theMap = new Mapper(newLog, newSize);
 		Module[][] extractor = theMap.getMap();
-		Module current;		
+		Module current;
+		for (int y = 0; y < gridSize; y++) {
+			for (int x = 0; x < gridSize; x++) {
+				mapGrid.setWidget(y, x, null);
+			}
+		}
 		for (int y = 0; y < gridSize; y++) {
 			for (int x = 0; x < gridSize; x++) {
 				current = extractor[x][y];
