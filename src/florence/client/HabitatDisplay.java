@@ -2,6 +2,7 @@ package florence.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -21,6 +22,8 @@ public class HabitatDisplay {
 	
 	private TextBox XCoord = new TextBox();
 	private TextBox YCoord = new TextBox();
+	
+	private TextBox configName = new TextBox();
 	
 	private HabitatConfig habitatConfig;
 
@@ -81,6 +84,7 @@ public class HabitatDisplay {
 				}
 			}
 		}
+		setDropdown();
 	}
 	
 	public ScrollPanel makeHabitatDisplay() {
@@ -90,6 +94,7 @@ public class HabitatDisplay {
 		configGrid.setVisible(true);
 		Label xLabel = new Label("New X Coord");
 		Label yLabel = new Label("New Y Coord");
+		Label configLabel = new Label("Config Name: ");
 		horzPanel.add(menu);
 		horzPanel.add(loadConfig);
 		horzPanel.add(xLabel);
@@ -100,6 +105,10 @@ public class HabitatDisplay {
 		horzPanel.add(YCoord);
 		horzPanel.setSpacing(10);
 		horzPanel.add(changeCenter);
+		horzPanel.add(configLabel);
+		configName.setWidth("80px");
+		horzPanel.add(configName);
+		horzPanel.add(calculateConfig);
 		panel.add(horzPanel);
 		panel.add(configGrid);
 		panel.setVisible(true);
@@ -108,11 +117,20 @@ public class HabitatDisplay {
 		return newPanel;
 	}
 	
-	private void setDropdown(){
+	public void setDropdown(){
 		menu = new ListBox();
 		
-		menu.addItem("min1");
-		menu.addItem("min2");
+		
+		Storage moduleStore = Storage.getLocalStorageIfSupported();
+		if (moduleStore != null) {
+			for (int i = 0; i < moduleStore.getLength(); i++) {
+				String key = moduleStore.key(i);
+				String value = moduleStore.getItem(key);
+				if(value.contains("{")){
+					menu.addItem(key);
+				} 
+			}
+		}
 	}
 
 	private Button loadConfig = new Button("Load", new ClickHandler() {
@@ -141,6 +159,22 @@ public class HabitatDisplay {
 			habitatConfig = habitat;
 			
 			updateHabitat(habitat);
+		}
+	});
+	
+	private Button calculateConfig = new Button("Calculate Config",new ClickHandler() {
+		public void onClick(ClickEvent event) {
+			if(!configName.getValue().isEmpty()){
+				HabitatConfig habitat = new HabitatConfig();
+				habitat.setModuleLog(habitatConfig.getModuleLog());
+				habitat.setCenterX(20);
+				habitat.setCenterY(20);
+				habitat.createConfig(configName.getValue());
+			
+				habitatConfig = habitat;
+			
+				updateHabitat(habitat);
+			}
 		}
 	});
 	

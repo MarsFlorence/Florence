@@ -51,6 +51,9 @@ public class HabitatConfig {
 			else if(name.equals("min2")){
 				setMinimumConfig2();
 			}
+			else{
+				calculateConfig(name);
+			}
 		}
 	}
 	
@@ -132,8 +135,8 @@ public class HabitatConfig {
 	}
 	
 	private void setMinimumConfig1(){
-		int x = 50;
-		int y = 50;
+		int x = 20;
+		int y = 20;
 		if(centerX != 0){
 			x = centerX;
 		}
@@ -164,8 +167,8 @@ public class HabitatConfig {
 	}
 	
 	private void setMinimumConfig2(){
-		int x = 50;
-		int y = 50;
+		int x = 20;
+		int y = 20;
 		if(centerX != 0){
 			x = centerX;
 		}
@@ -235,6 +238,188 @@ public class HabitatConfig {
 
 	public void setModuleLog(ModuleLog moduleLog) {
 		this.moduleLog = moduleLog;
+	}
+	
+	private void calculateConfig(String key){
+		int plainNumber = plainModules.size();
+		int dormNumber = dormitoryModules.size();
+		int sanitationNumber = sanitationModules.size();
+		int controlNumber = controlModules.size();
+		int foodNumber = foodAndWaterModules.size();
+		int gymNumber = gymAndRelaxationModules.size();
+		int canteenNumber = canteenModules.size();
+		int powerNumber = powerModules.size();
+		int airlockNumber = airlockModules.size();
+		int medicalNumber = medicalModules.size();
+		
+		int dormGroup = 0; // 2 dormitory, 1 sanitation, 2 plain
+		int dormGymGroup = 0; // 2 dormitory, 1 sanitation, 2 plain, 1 gym
+		int powerControlGroup = 0; // 1 power, 1 control, 1 plain
+		int foodBasicGroup = 0; // 1 canteen, 1 food, 1 plain
+		int foodLargeGroup = 0; // 1 canteen, 3 food, 2 plain
+		int airlockMedGroup = 0; // 1 airlock, 1 medical, 1 plain
+		int cornerGroup = 0; // 3 plain
+		
+		if(plainNumber >= 3){
+			plainNumber = plainNumber - 3;
+			cornerGroup++;
+		}
+		
+		while(dormNumber >= 2 && sanitationNumber >= 1 && plainNumber >= 2){
+			dormNumber = dormNumber - 2;
+			sanitationNumber--;
+			plainNumber = plainNumber - 2;
+			if(gymNumber >= 1){
+				gymNumber--;
+				dormGymGroup++;
+			}
+			else{
+				dormGroup++;
+			}
+		}
+		
+		while(powerNumber >= 1 && controlNumber >= 1 && plainNumber >= 1){
+			powerNumber--;
+			controlNumber--;
+			plainNumber--;
+			powerControlGroup++;
+		}
+		
+		while(canteenNumber >= 1 && foodNumber >= 1 && plainNumber >= 1){
+			canteenNumber--;
+			if(foodNumber >= 3 && plainNumber >= 2){
+				foodNumber = foodNumber - 3;
+				plainNumber = plainNumber - 2;
+				foodLargeGroup++;
+			}
+			else{
+				foodNumber--;
+				plainNumber--;
+				foodBasicGroup++;
+			}
+		}
+		
+		while(airlockNumber >= 1 && medicalNumber >= 1 && plainNumber >= 1){
+			airlockNumber--;
+			medicalNumber--;
+			plainNumber--;
+			airlockMedGroup++;
+		}
+		
+		int centerX = getCenterX();
+		int centerY = getCenterY();
+		
+		int x = centerX;
+		int y = centerY;
+		
+		if(cornerGroup >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(plainModules.get(0), x + 1, y);
+			plainModules.remove(0);
+			addModule(plainModules.get(0), x , y + 1);
+			plainModules.remove(0);
+			cornerGroup--;
+			x = x + 2;
+		}
+		while(dormGymGroup >= 1 || dormGroup >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(plainModules.get(0), x + 1, y);
+			plainModules.remove(0);
+			addModule(dormitoryModules.get(0), x , y - 1);
+			dormitoryModules.remove(0);
+			addModule(dormitoryModules.get(0), x + 1 , y - 1);
+			dormitoryModules.remove(0);
+			addModule(sanitationModules.get(0), x + 1, y + 1);
+			sanitationModules.remove(0);
+			if(dormGymGroup >= 1){
+				addModule(gymAndRelaxationModules.get(0), x , y + 1);
+				gymAndRelaxationModules.remove(0);
+				dormGymGroup--;
+			}
+			else{
+				dormGroup--;
+			}
+			x = x + 2;
+		}
+		
+		int halfPowerControl = powerControlGroup / 2;
+		int remainderPowerControl = powerControlGroup - halfPowerControl;
+		
+		while(halfPowerControl >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(controlModules.get(0), x , y - 1);
+			controlModules.remove(0);
+			addModule(powerModules.get(0), x , y + 1);
+			powerModules.remove(0);
+			powerControlGroup--;
+			halfPowerControl--;
+			x++;
+		}
+		if(airlockMedGroup >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(medicalModules.get(0), x , y - 1);
+			medicalModules.remove(0);
+			addModule(airlockModules.get(0), x + 1 , y);
+			airlockModules.remove(0);
+			airlockMedGroup--;
+			x = x + 2;
+		}
+		
+		x = centerX;
+		y = y + 2;
+		
+		while(foodBasicGroup >= 1 || foodLargeGroup >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(canteenModules.get(0), x + 1 , y);
+			canteenModules.remove(0);
+			addModule(foodAndWaterModules.get(0), x - 1 , y);
+			foodAndWaterModules.remove(0);
+			if(foodLargeGroup >= 1){
+				addModule(plainModules.get(0), x , y + 1);
+				plainModules.remove(0);
+				addModule(foodAndWaterModules.get(0), x + 1 , y + 1);
+				foodAndWaterModules.remove(0);
+				addModule(foodAndWaterModules.get(0), x - 1 , y + 1);
+				foodAndWaterModules.remove(0);
+				foodLargeGroup--;
+				y = y + 2;
+			}
+			else{
+				foodBasicGroup--;
+				y++;
+			}
+		}
+		
+		while(remainderPowerControl >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(controlModules.get(0), x + 1 , y);
+			controlModules.remove(0);
+			addModule(powerModules.get(0), x - 1 , y);
+			powerModules.remove(0);
+			powerControlGroup--;
+			remainderPowerControl--;
+			y++;
+		}
+		
+		if(airlockMedGroup >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(medicalModules.get(0), x + 1 , y);
+			medicalModules.remove(0);
+			addModule(airlockModules.get(0), x , y + 1);
+			airlockModules.remove(0);
+			airlockMedGroup--;
+			x = x + 2;
+		}
+		
+		saveConfiguration(key);
+		
 	}
 	
 	/**
