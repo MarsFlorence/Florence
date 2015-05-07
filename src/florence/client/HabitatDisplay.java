@@ -84,6 +84,7 @@ public class HabitatDisplay {
 				}
 			}
 		}
+		setDropdown();
 	}
 	
 	public ScrollPanel makeHabitatDisplay() {
@@ -166,8 +167,8 @@ public class HabitatDisplay {
 			if(!configName.getValue().isEmpty()){
 				HabitatConfig habitat = new HabitatConfig();
 				habitat.setModuleLog(habitatConfig.getModuleLog());
-				habitat.setCenterX(50);
-				habitat.setCenterY(50);
+				habitat.setCenterX(20);
+				habitat.setCenterY(20);
 				habitat.createConfig(configName.getValue());
 			
 				habitatConfig = habitat;
