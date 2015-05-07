@@ -135,8 +135,8 @@ public class HabitatConfig {
 	}
 	
 	private void setMinimumConfig1(){
-		int x = 50;
-		int y = 50;
+		int x = 20;
+		int y = 20;
 		if(centerX != 0){
 			x = centerX;
 		}
@@ -167,8 +167,8 @@ public class HabitatConfig {
 	}
 	
 	private void setMinimumConfig2(){
-		int x = 50;
-		int y = 50;
+		int x = 20;
+		int y = 20;
 		if(centerX != 0){
 			x = centerX;
 		}
