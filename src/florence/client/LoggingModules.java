@@ -234,6 +234,7 @@ public class LoggingModules {
 				}
 			}
 		});
+		Label testLabel = new Label("Test Cases:");
 		Label numLabel = new Label("Module ID:");
 		Label statusLabel = new Label("Module Status:");
 		Label numOrientation = new Label("Module Orientation:");
@@ -259,6 +260,7 @@ public class LoggingModules {
 		panel.add(removeModLabel);
 		panel.add(deleteModId);
 		panel.add(deleteMod);
+		panel.add(testLabel);
 		panel.add(testcases);
 		tableScroll.add(panel);
 		//Retrieve Data From local storage and add it to the table

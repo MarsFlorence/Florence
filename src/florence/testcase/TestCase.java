@@ -28,11 +28,9 @@ public class TestCase implements EntryPoint {
 	private int count;
 	
 	public void onModuleLoad() {
-		String proxy =
-				"http://www.d.umn.edu/~samue223/Proxy.php?url=";
-				String url =
-				proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + requestedCase;
-				url = URL.encode(url);
+		String url =
+				"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + requestedCase;
+		url = URL.encode(url);
 				
 		count = 0;		
 		// Send request to server and catch any errors.
