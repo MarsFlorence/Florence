@@ -158,7 +158,7 @@ public class LoggingModules {
 				if (newMod.getStatus() == Status.UNDAMAGED 
 						|| newMod.getStatus() == Status.UNCERTAIN) {
 					modConfigs.addModuleItem(newMod.getModType());
-					if (modConfigs.checkMinCond()) {
+					if (modConfigs.checkMinCond() && modConfigs.isShouldDisplay()) {
 						/*This block will run when the minimum condition is met:
 						 * ALERT
 						 * Gives user the option to view two minimum habitat
@@ -166,6 +166,7 @@ public class LoggingModules {
 						 */
 						Window.alert("ALERT :"
 								+ " Minimum configuration has been reached.");
+						modConfigs.setShouldDisplay(false);
 					}
 				}
 			} else {
@@ -179,6 +180,8 @@ public class LoggingModules {
 		private Button deleteMod = new Button("Delete", new ClickHandler() {
 		      public void onClick(ClickEvent event) {
 		    	  if(!deleteModId.getText().isEmpty() && moduleLog.containsModule(Integer.parseInt(deleteModId.getText()))){
+		    		  Module deleteModule = moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText()));
+		    		  modConfigs.removeModuleItem(deleteModule.getModType());
 		    		  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
 		    		  mapDisplay.removeFromMap(moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText())));
 		    		  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
@@ -257,6 +260,7 @@ public class LoggingModules {
 		//Retrieve Data From local storage and add it to the table
 		moduleStore = Storage.getLocalStorageIfSupported();
 		if (moduleStore != null) {
+			boolean minMessage = false;
 			for (int i = 0; i < moduleStore.getLength(); i++) {
 				String key = moduleStore.key(i);
 				String value = moduleStore.getItem(key);
@@ -270,18 +274,20 @@ public class LoggingModules {
 						
 						if(modConfigs != null){
 							modConfigs.addModuleItem(loadedModule.getModType());
-							if (modConfigs.checkMinCond()) {
+							if (modConfigs.checkMinCond() && minMessage == false) {
 								/*This block will run when the minimum condition is met:
 								 * ALERT
 								 * Gives user the option to view two minimum habitat
 								 * configurations (possibly use HistoryExample Lab) 
 								 */
+								minMessage = true;
 								Window.alert("ALERT: Minimum configuration has been reached.");
 							}
 						}
 					}
 				} 
 			}
+			modConfigs.setShouldDisplay(true);
   		  	HabitatDisplay habbydisplay = new HabitatDisplay(new HabitatConfig(moduleLog));
   		  	attachHabitat(habbydisplay);			
 			boolean minConfigCreated = false;
