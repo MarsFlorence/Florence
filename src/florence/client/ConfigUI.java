@@ -94,4 +94,8 @@ public class ConfigUI {
 	public void removeFromMap(Module mod){
 		theMap.removeModule(mod);
 	}
+	
+	public void clearMap() {
+		theMap.clearMap();
+	}
 }

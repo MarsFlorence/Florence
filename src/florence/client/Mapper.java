@@ -88,6 +88,12 @@ public class Mapper {
 		return moduleMap;
 	}
 	
-	
+	public void clearMap(){
+		for(int x = 0; x < dimensions; x++){
+			for(int y = 0; y < dimensions; y++){
+				moduleMap[x][y] = null;
+			}
+		}
+	}
 
 }
