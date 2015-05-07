@@ -229,6 +229,7 @@ public class LoggingModules {
 					test.onModuleLoad();
 					Module[] loadThese = test.getTestCase();
 					moduleLog.clearModules();
+					mapDisplay.clearMap();
 					for (int count = 0; count < loadThese.length; count++) {
 						moduleLog.addModule(loadThese[count]);
 					}
