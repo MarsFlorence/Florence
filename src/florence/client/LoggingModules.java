@@ -227,10 +227,10 @@ public class LoggingModules {
 					moduleLog.clearModules();
 					int counter = 0;
 					while (counter < test.getCount() && test.getTestCase()[counter] != null) {
-						moduleLog.addModule(test.getTestCase()[counter]);
-						addTable();
-						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
+						moduleLog.addModule(test.getTestCase()[counter]);	
 					}
+					addTable();
+					mapDisplay.updateMap(moduleLog, moduleLog.getSize());
 				}
 			}
 		});
