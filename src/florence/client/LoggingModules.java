@@ -221,20 +221,20 @@ public class LoggingModules {
 				if(testcases.getSelectedIndex() == 0) {
 					
 				} else {
-					moduleLog.clearModules();
 					TestCase test = new TestCase();
 					test.changeCase(testcases.getItemText(testcases.getSelectedIndex()));
 					test.onModuleLoad();
+					moduleLog.clearModules();
 					int counter = 0;
 					while (counter < test.getCount() && test.getTestCase()[counter] != null) {
 						moduleLog.addModule(test.getTestCase()[counter]);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
 					}
-					
 				}
 			}
 		});
+		Label testLabel = new Label("Test Cases:");
 		Label numLabel = new Label("Module ID:");
 		Label statusLabel = new Label("Module Status:");
 		Label numOrientation = new Label("Module Orientation:");
@@ -260,6 +260,7 @@ public class LoggingModules {
 		panel.add(removeModLabel);
 		panel.add(deleteModId);
 		panel.add(deleteMod);
+		panel.add(testLabel);
 		panel.add(testcases);
 		tableScroll.add(panel);
 		//Retrieve Data From local storage and add it to the table
