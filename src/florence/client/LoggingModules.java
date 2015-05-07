@@ -139,6 +139,7 @@ public class LoggingModules {
 						habitat1.createConfig("min1");
 						habitat2.createConfig("min2");
 						habitatDisplay.updateHabitat(habitat1);
+						habitatDisplay.setDropdown();
 						
 						//TODO Stop modules from being placed on top of each other.
 					} else {

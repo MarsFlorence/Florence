@@ -282,7 +282,7 @@ public class HabitatConfig {
 			powerNumber--;
 			controlNumber--;
 			plainNumber--;
-			powerControlGroup--;
+			powerControlGroup++;
 		}
 		
 		while(canteenNumber >= 1 && foodNumber >= 1 && plainNumber >= 1){
@@ -343,7 +343,11 @@ public class HabitatConfig {
 			}
 			x = x + 2;
 		}
-		while(powerControlGroup >= 1){
+		
+		int halfPowerControl = powerControlGroup / 2;
+		int remainderPowerControl = powerControlGroup - halfPowerControl;
+		
+		while(halfPowerControl >= 1){
 			addModule(plainModules.get(0), x , y);
 			plainModules.remove(0);
 			addModule(controlModules.get(0), x , y - 1);
@@ -351,6 +355,7 @@ public class HabitatConfig {
 			addModule(powerModules.get(0), x , y + 1);
 			powerModules.remove(0);
 			powerControlGroup--;
+			halfPowerControl--;
 			x++;
 		}
 		if(airlockMedGroup >= 1){
@@ -388,6 +393,18 @@ public class HabitatConfig {
 				foodBasicGroup--;
 				y++;
 			}
+		}
+		
+		while(remainderPowerControl >= 1){
+			addModule(plainModules.get(0), x , y);
+			plainModules.remove(0);
+			addModule(controlModules.get(0), x + 1 , y);
+			controlModules.remove(0);
+			addModule(powerModules.get(0), x - 1 , y);
+			powerModules.remove(0);
+			powerControlGroup--;
+			remainderPowerControl--;
+			y++;
 		}
 		
 		if(airlockMedGroup >= 1){
