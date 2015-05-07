@@ -48,9 +48,9 @@ public class JSONsubvertSOP {
 		    }
 		  });
 		} catch (RequestException e) {
-			Window.alert("RequestException: Couldn't retrieve JSON");
+			
 		}
-		
+		Window.alert("Updated Weather Forecast");
 	}	
 		public void update(String rt) {
 			
@@ -74,9 +74,6 @@ public class JSONsubvertSOP {
 			
 			JSONObject jHourObject = 
 					(JSONObject)JSONParser.parseLenient(jSunset.toString());
-			//JSONValue jSunset = jD.get("sunset");
-			
-			JSONObject jG = (JSONObject)JSONParser.parseLenient(jTry1.toString());
 		//Astronomy end
 			
 			
@@ -87,8 +84,8 @@ public class JSONsubvertSOP {
 			JSONValue visibility = jB.get("visibility_km");
 			
 		//Astronomy : time until sunset
-			JSONValue hr = jD.get("hour");
-			JSONValue min = jD.get("minute");
+			JSONValue hr = jHourObject.get("hour");
+			JSONValue min = jHourObject.get("minute");
 		//Astronomy end
 			
 			String sTemp = temp.toString();
@@ -119,7 +116,8 @@ public class JSONsubvertSOP {
 		private VerticalPanel vp = new VerticalPanel();
 		
 		public VerticalPanel getVP() {
-			return vp;
+					return vp;
+		
 		}
 		
 		public void runW() {

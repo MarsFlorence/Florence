@@ -159,7 +159,7 @@ public class LoggingModules {
 				if (newMod.getStatus() == Status.UNDAMAGED 
 						|| newMod.getStatus() == Status.UNCERTAIN) {
 					modConfigs.addModuleItem(newMod.getModType());
-					if (modConfigs.checkMinCond()) {
+					if (modConfigs.checkMinCond() && modConfigs.isShouldDisplay()) {
 						/*This block will run when the minimum condition is met:
 						 * ALERT
 						 * Gives user the option to view two minimum habitat
@@ -167,14 +167,7 @@ public class LoggingModules {
 						 */
 						Window.alert("ALERT :"
 								+ " Minimum configuration has been reached.");
-					}
-					else if (modConfigs.checkMaxCond()) {
-						/*This block will run when the maximum condition is met:
-						 * ALERT
-						 * 
-						 */
-						Window.alert("ALERT :"
-								+ " Maximum configuration has been reached.");
+						modConfigs.setShouldDisplay(false);
 					}
 				}
 			} else {
@@ -188,6 +181,8 @@ public class LoggingModules {
 		private Button deleteMod = new Button("Delete", new ClickHandler() {
 		      public void onClick(ClickEvent event) {
 		    	  if(!deleteModId.getText().isEmpty() && moduleLog.containsModule(Integer.parseInt(deleteModId.getText()))){
+		    		  Module deleteModule = moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText()));
+		    		  modConfigs.removeModuleItem(deleteModule.getModType());
 		    		  moduleTable.removeRow(moduleLog.getIndex(Integer.parseInt(deleteModId.getText())));
 		    		  mapDisplay.removeFromMap(moduleLog.getModuleFromId(Integer.parseInt(deleteModId.getText())));
 		    		  moduleLog.deleteAndRemoveModule(Integer.parseInt(deleteModId.getText()), moduleStore);
@@ -222,20 +217,20 @@ public class LoggingModules {
 				if(testcases.getSelectedIndex() == 0) {
 					
 				} else {
-					moduleLog.clearModules();
 					TestCase test = new TestCase();
 					test.changeCase(testcases.getItemText(testcases.getSelectedIndex()));
 					test.onModuleLoad();
+					moduleLog.clearModules();
 					int counter = 0;
 					while (counter < test.getCount() && test.getTestCase()[counter] != null) {
 						moduleLog.addModule(test.getTestCase()[counter]);
 						addTable();
 						mapDisplay.updateMap(moduleLog, moduleLog.getSize());
 					}
-					
 				}
 			}
 		});
+		Label testLabel = new Label("Test Cases:");
 		Label numLabel = new Label("Module ID:");
 		Label statusLabel = new Label("Module Status:");
 		Label numOrientation = new Label("Module Orientation:");
@@ -261,11 +256,13 @@ public class LoggingModules {
 		panel.add(removeModLabel);
 		panel.add(deleteModId);
 		panel.add(deleteMod);
+		panel.add(testLabel);
 		panel.add(testcases);
 		tableScroll.add(panel);
 		//Retrieve Data From local storage and add it to the table
 		moduleStore = Storage.getLocalStorageIfSupported();
 		if (moduleStore != null) {
+			boolean minMessage = false;
 			for (int i = 0; i < moduleStore.getLength(); i++) {
 				String key = moduleStore.key(i);
 				String value = moduleStore.getItem(key);
@@ -274,8 +271,25 @@ public class LoggingModules {
 					moduleStore.removeItem(key);
 					moduleLog.addModule(loadedModule);
 					addTable();
+					if (loadedModule.getStatus() == Status.UNDAMAGED 
+							|| loadedModule.getStatus() == Status.UNCERTAIN) {
+						
+						if(modConfigs != null){
+							modConfigs.addModuleItem(loadedModule.getModType());
+							if (modConfigs.checkMinCond() && minMessage == false) {
+								/*This block will run when the minimum condition is met:
+								 * ALERT
+								 * Gives user the option to view two minimum habitat
+								 * configurations (possibly use HistoryExample Lab) 
+								 */
+								minMessage = true;
+								Window.alert("ALERT: Minimum configuration has been reached.");
+							}
+						}
+					}
 				} 
 			}
+			modConfigs.setShouldDisplay(true);
   		  	HabitatDisplay habbydisplay = new HabitatDisplay(new HabitatConfig(moduleLog));
   		  	attachHabitat(habbydisplay);			
 			boolean minConfigCreated = false;

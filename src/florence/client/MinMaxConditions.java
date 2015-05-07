@@ -5,6 +5,17 @@ import java.util.ArrayList;
  * Class that checks minimum and maximum conditions.
  */
 public class MinMaxConditions {
+	
+	private boolean shouldDisplay;
+	
+	public boolean isShouldDisplay() {
+		return shouldDisplay;
+	}
+	
+	public void setShouldDisplay(boolean shouldDisplay) {
+		this.shouldDisplay = shouldDisplay;
+	}
+
 	/**
 	 * ArrayList of module types.
 	 */
@@ -77,6 +88,34 @@ public class MinMaxConditions {
 			medicalCount++;
 		}
 	}
+	/**
+	 * Method that increments a counter based on given type.
+	 * @param module the module type that needs count incremented
+	 */
+	public void removeModuleItem(Type module) {
+		listOfMod.add(module);
+		if (module == Type.AIRLOCK) {
+			airlockCount--;
+		} else if (module == Type.CONTROL) {
+			controlCount--;
+		} else if (module == Type.POWER) {
+			powerCount--;
+		} else if (module == Type.FWS) {
+			fwsCount--;
+		} else if (module == Type.DORMITORY) {
+			dormitoryCount--;
+		} else if (module == Type.CANTEEN) {
+			canteenCount--;
+		} else if (module == Type.SANITATION) {
+			sanitationCount--;
+		} else if (module == Type.PLAIN) {
+			plainCount--;
+		} else if (module == Type.GR) {
+			grCount--;
+		} else { //(module == Type.MEDICAL)
+			medicalCount--;
+		}
+	}	
 	/**
 	 * Method that checks if minimum conditions are met.
 	 * @return true the condition is met, false the condition was not met
