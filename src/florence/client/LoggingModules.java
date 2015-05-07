@@ -210,6 +210,13 @@ public class LoggingModules {
 		testcases.addItem("1");
 		testcases.addItem("2");
 		testcases.addItem("3");
+		testcases.addItem("4");
+		testcases.addItem("5");
+		testcases.addItem("6");
+		testcases.addItem("7");
+		testcases.addItem("8");
+		testcases.addItem("9");
+		testcases.addItem("10");
 		testcases.setItemSelected(0, true);
 		testcases.addChangeHandler(new ChangeHandler() {
 			
